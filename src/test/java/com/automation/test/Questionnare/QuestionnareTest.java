@@ -44,7 +44,7 @@ public class QuestionnareTest extends BaseTest {
         loginPage.submitInvestmentPlan(); // Submit the investment plan
     }
 
-    // @Test
+    @Test
     public void testPreferencesAndPriorities() {
         System.out.println("\n========== TEST: Preferences and Priorities ==========");
         // Implementation for preferences and priorities tests
