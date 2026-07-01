@@ -1,8 +1,12 @@
 package com.automation.utils;
 
 import org.testng.annotations.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class EncryptorTest {
+
+    private static final Logger logger = LoggerFactory.getLogger(EncryptorTest.class);
 
     @Test
     public void generateEncryption() {
@@ -12,7 +16,7 @@ public class EncryptorTest {
         String encryptedMobile = EncryptionUtils.encrypt(mobilePlain);
         String encryptedPassword = EncryptionUtils.encrypt(passwordPlain);
 
-        System.out.println("ENCRYPTED_MOBILE:" + encryptedMobile);
-        System.out.println("ENCRYPTED_PASSWORD:" + encryptedPassword);
+        logger.info("ENCRYPTED_MOBILE:" + encryptedMobile);
+        logger.info("ENCRYPTED_PASSWORD:" + encryptedPassword);
     }
 }

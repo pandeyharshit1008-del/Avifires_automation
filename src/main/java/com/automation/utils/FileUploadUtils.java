@@ -1,5 +1,8 @@
 package com.automation.utils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -9,6 +12,8 @@ import java.nio.file.Paths;
  * Utility class for handling file upload operations
  */
 public class FileUploadUtils {
+
+    private static final Logger logger = LoggerFactory.getLogger(FileUploadUtils.class);
 
     /**
      * Get the full file path for a document file
@@ -32,9 +37,9 @@ public class FileUploadUtils {
         String filePath = getFilePath(fileName);
         boolean exists = new File(filePath).exists();
         if (exists) {
-            System.out.println("✓ File exists: " + filePath);
+            logger.info("✓ File exists: " + filePath);
         } else {
-            System.out.println("✗ File not found: " + filePath);
+            logger.info("✗ File not found: " + filePath);
         }
         return exists;
     }
@@ -50,11 +55,11 @@ public class FileUploadUtils {
             Path filePath = Paths.get(getFilePath(fileName));
             if (Files.exists(filePath)) {
                 long size = Files.size(filePath);
-                System.out.println("✓ File size: " + size + " bytes");
+                logger.info("✓ File size: " + size + " bytes");
                 return size;
             }
         } catch (Exception e) {
-            System.out.println("✗ Error getting file size: " + e.getMessage());
+            logger.info("✗ Error getting file size: " + e.getMessage());
         }
         return 0;
     }
@@ -84,11 +89,11 @@ public class FileUploadUtils {
         String extension = getFileExtension(fileName);
         for (String allowed : allowedExtensions) {
             if (extension.equalsIgnoreCase(allowed)) {
-                System.out.println("✓ File extension is allowed: " + extension);
+                logger.info("✓ File extension is allowed: " + extension);
                 return true;
             }
         }
-        System.out.println("✗ File extension not allowed: " + extension);
+        logger.info("✗ File extension not allowed: " + extension);
         return false;
     }
 

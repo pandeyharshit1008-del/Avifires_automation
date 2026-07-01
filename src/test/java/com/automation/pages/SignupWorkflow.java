@@ -5,6 +5,8 @@ import com.automation.utils.UserCredentials;
 import com.github.javafaker.Faker;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
 
@@ -12,6 +14,8 @@ import java.time.Duration;
  * High-level signup workflow that encapsulates the business flow and OTP handling.
  */
 public class SignupWorkflow {
+
+    private static final Logger logger = LoggerFactory.getLogger(SignupWorkflow.class);
 
     private final WebDriver driver;
     private final SignupPage signupPage;
@@ -37,8 +41,8 @@ public class SignupWorkflow {
         String password = faker.internet().password(12, 16, true, true, true);
 
         UserCredentials user = new UserCredentials(email, firstName, lastName, mobile, password, password);
-        System.out.println("Generated mobile: " + user.getMobile());
-        System.out.println("Generated password: " + user.getPassword());
+        logger.info("Generated mobile: " + user.getMobile());
+        logger.info("Generated password: " + user.getPassword());
         return user;
     }
 
@@ -60,7 +64,7 @@ public class SignupWorkflow {
     public boolean verifySignupSuccess() {
         boolean success = signupPage.verifySignupSuccess();
         if (success) {
-            System.out.println("Signup successful");
+            logger.info("Signup successful");
         }
         return success;
     }
@@ -75,7 +79,7 @@ public class SignupWorkflow {
             throw new IllegalStateException("OTP was not captured for signup");
         }
 
-        System.out.println("OTP captured");
+        logger.info("OTP captured");
         signupPage.enterPasswordOtp(otp);
         signupPage.clickVerifyOtpButton();
     }

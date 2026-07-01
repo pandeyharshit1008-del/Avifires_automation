@@ -1,5 +1,8 @@
 package com.automation.utils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.openqa.selenium.WebDriver;
@@ -17,6 +20,8 @@ import java.util.Optional;
  * Uses Selenium 4 Chrome DevTools Protocol (CDP) to capture network responses
  */
 public class OTPInterceptor {
+
+    private static final Logger logger = LoggerFactory.getLogger(OTPInterceptor.class);
 
     private WebDriver driver;
     private DevTools devTools;
@@ -51,13 +56,12 @@ public class OTPInterceptor {
                     handleNetworkResponse(response);
                 });
 
-                System.out.println("✓ Network listener started");
+                logger.info("✓ Network listener started");
             } else {
-                System.out.println("✗ Driver is not ChromeDriver. Cannot use DevTools.");
+                logger.info("✗ Driver is not ChromeDriver. Cannot use DevTools.");
             }
         } catch (Exception e) {
-            System.out.println("✗ Error starting network listener: " + e.getMessage());
-            e.printStackTrace();
+            logger.error("Error starting network listener", e);
         }
     }
 
@@ -68,10 +72,10 @@ public class OTPInterceptor {
         try {
             if (devTools != null) {
                 devTools.send(Network.disable());
-                System.out.println("✓ Network listener stopped");
+                logger.info("✓ Network listener stopped");
             }
         } catch (Exception e) {
-            System.out.println("✗ Error stopping network listener: " + e.getMessage());
+            logger.info("✗ Error stopping network listener: " + e.getMessage());
         }
     }
 
@@ -86,13 +90,13 @@ public class OTPInterceptor {
             
             // Check if this is the password auth endpoint that returns OTP
             if (url.contains(ConfigConstants.PASSWORD_AUTH_ENDPOINT) || url.contains("user_auth_password")) {
-                System.out.println("✓ Password auth endpoint detected: " + url);
+                logger.info("✓ Password auth endpoint detected: " + url);
 
                 RequestId requestId = response.getRequestId();
                 extractOtpFromResponse(requestId);
             }
         } catch (Exception e) {
-            System.out.println("Error processing network response: " + e.getMessage());
+            logger.info("Error processing network response: " + e.getMessage());
         }
     }
 
@@ -103,7 +107,7 @@ public class OTPInterceptor {
     private void extractOtpFromResponse(RequestId requestId) {
         try {
             if (devTools == null) {
-                System.out.println("✗ DevTools session is not available");
+                logger.info("✗ DevTools session is not available");
                 return;
             }
 
@@ -113,14 +117,14 @@ public class OTPInterceptor {
                 responseBody = new String(Base64.getDecoder().decode(responseBody));
             }
 
-            System.out.println("✓ Response body captured for OTP request: " + responseBody);
+            logger.info("✓ Response body captured for OTP request: " + responseBody);
 
             String otp = extractOtp(responseBody);
             if (otp != null) {
                 this.capturedOtp = otp;
             }
         } catch (Exception e) {
-            System.out.println("✗ Error extracting OTP from response: " + e.getMessage());
+            logger.info("✗ Error extracting OTP from response: " + e.getMessage());
         }
     }
 
@@ -138,21 +142,21 @@ public class OTPInterceptor {
             if (!otpNode.isMissingNode() && !otpNode.isNull()) {
                 String otp = otpNode.asText();
                 this.capturedOtp = otp;
-                System.out.println(ConfigConstants.LOG_OTP_CAPTURED + otp);
+                logger.info(ConfigConstants.LOG_OTP_CAPTURED + otp);
                 return otp;
             }
 
             if (root.has(ConfigConstants.OTP_RESPONSE_FIELD)) {
                 String otp = root.get(ConfigConstants.OTP_RESPONSE_FIELD).asText();
                 this.capturedOtp = otp;
-                System.out.println(ConfigConstants.LOG_OTP_CAPTURED + otp);
+                logger.info(ConfigConstants.LOG_OTP_CAPTURED + otp);
                 return otp;
             }
 
-            System.out.println("✗ OTP field not found in response: " + ConfigConstants.OTP_RESPONSE_FIELD);
+            logger.info("✗ OTP field not found in response: " + ConfigConstants.OTP_RESPONSE_FIELD);
             return null;
         } catch (Exception e) {
-            System.out.println("✗ Error parsing OTP from JSON response: " + e.getMessage());
+            logger.info("✗ Error parsing OTP from JSON response: " + e.getMessage());
             return null;
         }
     }
@@ -173,7 +177,7 @@ public class OTPInterceptor {
      */
     public void setCapturedOtp(String otp) {
         this.capturedOtp = otp;
-        System.out.println(ConfigConstants.LOG_OTP_CAPTURED + otp);
+        logger.info(ConfigConstants.LOG_OTP_CAPTURED + otp);
     }
 
     /**
@@ -181,7 +185,7 @@ public class OTPInterceptor {
      */
     public void resetCapturedOtp() {
         this.capturedOtp = null;
-        System.out.println("✓ Captured OTP reset");
+        logger.info("✓ Captured OTP reset");
     }
 
 }

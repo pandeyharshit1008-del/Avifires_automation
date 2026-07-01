@@ -4,15 +4,18 @@ import com.automation.utils.AssertUtils;
 import com.automation.utils.ConfigConstants;
 import com.automation.utils.TestDataReader;
 import org.testng.annotations.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 
 public class QuestionnareTest extends BaseTest {
 
+    private static final Logger logger = LoggerFactory.getLogger(QuestionnareTest.class);
 
     @Test
     public void testInvestmentPlan() {
-        System.out.println("\n========== TEST: Investment Plan ==========");
+        logger.info("\n========== TEST: Investment Plan ==========");
         // Implementation for investment plan tests
 
         LoginPage loginPage = new LoginPage(driver);
@@ -20,7 +23,7 @@ public class QuestionnareTest extends BaseTest {
         // Load encrypted credentials from test data and decrypt at runtime
         Map<String, String> userData = TestDataReader.getUser("validUser");
         if (userData.isEmpty()) {
-            System.out.println("✗ Test data not available for validUser");
+            logger.info("✗ Test data not available for validUser");
             return;
         }
 
@@ -32,9 +35,9 @@ public class QuestionnareTest extends BaseTest {
 
         // Verify login success with exact dashboard URL
         if (AssertUtils.assertUrlEquals(driver, ConfigConstants.DASHBOARD_URL)) {
-            System.out.println("✓ Test Passed: Valid login successful");
+            logger.info("✓ Test Passed: Valid login successful");
         } else {
-            System.out.println("✗ Test Failed: Login did not navigate to dashboard");
+            logger.info("✗ Test Failed: Login did not navigate to dashboard");
         }
         loginPage.openSidebar(); // Open the sidebar
         loginPage.moveToQuestionnairePage(); // Select the investment plan from the sidebar
@@ -46,7 +49,7 @@ public class QuestionnareTest extends BaseTest {
 
     @Test
     public void testPreferencesAndPriorities() {
-        System.out.println("\n========== TEST: Preferences and Priorities ==========");
+        logger.info("\n========== TEST: Preferences and Priorities ==========");
         // Implementation for preferences and priorities tests
 
         LoginPage loginPage = new LoginPage(driver);
@@ -54,7 +57,7 @@ public class QuestionnareTest extends BaseTest {
         // Load encrypted credentials from test data and decrypt at runtime
         Map<String, String> userData = TestDataReader.getUser("validUser");
         if (userData.isEmpty()) {
-            System.out.println("✗ Test data not available for validUser");
+            logger.info("✗ Test data not available for validUser");
             return;
         }
 
@@ -66,9 +69,9 @@ public class QuestionnareTest extends BaseTest {
 
         // Verify login success with exact dashboard URL
         if (AssertUtils.assertUrlEquals(driver, ConfigConstants.DASHBOARD_URL)) {
-            System.out.println("✓ Test Passed: Valid login successful");
+            logger.info("✓ Test Passed: Valid login successful");
         } else {
-            System.out.println("✗ Test Failed: Login did not navigate to dashboard");
+            logger.info("✗ Test Failed: Login did not navigate to dashboard");
         }
         loginPage.openSidebar(); // Open the sidebar
         loginPage.moveToQuestionnairePage(); // Select the preferences and priorities from the sidebar

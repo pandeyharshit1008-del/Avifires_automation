@@ -1,5 +1,8 @@
 package com.automation.utils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 import java.util.Base64;
@@ -9,6 +12,8 @@ import java.util.Base64;
  * Uses AES encryption algorithm
  */
 public class EncryptionUtils {
+
+    private static final Logger logger = LoggerFactory.getLogger(EncryptionUtils.class);
 
     private static final String ENCRYPTION_ALGORITHM = "AES";
     private static final String ENCRYPTION_KEY = ConfigConstants.ENCRYPTION_KEY;
@@ -34,8 +39,7 @@ public class EncryptionUtils {
             // Return Base64 encoded string
             return Base64.getEncoder().encodeToString(encryptedBytes);
         } catch (Exception e) {
-            System.out.println("Error during encryption: " + e.getMessage());
-            e.printStackTrace();
+            logger.error("Error during encryption", e);
             return null;
         }
     }
@@ -64,8 +68,7 @@ public class EncryptionUtils {
             // Return decrypted string
             return new String(decryptedBytes);
         } catch (Exception e) {
-            System.out.println("Error during decryption: " + e.getMessage());
-            e.printStackTrace();
+            logger.error("Error during decryption", e);
             return null;
         }
     }

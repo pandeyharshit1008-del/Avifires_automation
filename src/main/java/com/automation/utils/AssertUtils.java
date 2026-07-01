@@ -1,5 +1,8 @@
 package com.automation.utils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -14,6 +17,8 @@ import java.time.Duration;
  */
 public class AssertUtils {
 
+    private static final Logger logger = LoggerFactory.getLogger(AssertUtils.class);
+
     /**
      * Assert that an element is visible on the page
      *
@@ -25,10 +30,10 @@ public class AssertUtils {
         try {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(ConfigConstants.WAIT_TIMEOUT_SECONDS));
             wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
-            System.out.println("✓ Element is visible: " + locator);
+            logger.info("✓ Element is visible: " + locator);
             return true;
         } catch (Exception e) {
-            System.out.println("✗ Element is not visible: " + locator);
+            logger.info("✗ Element is not visible: " + locator);
             return false;
         }
     }
@@ -44,10 +49,10 @@ public class AssertUtils {
         try {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(ConfigConstants.WAIT_TIMEOUT_SECONDS));
             wait.until(ExpectedConditions.presenceOfElementLocated(locator));
-            System.out.println("✓ Element exists in DOM: " + locator);
+            logger.info("✓ Element exists in DOM: " + locator);
             return true;
         } catch (Exception e) {
-            System.out.println("✗ Element does not exist in DOM: " + locator);
+            logger.info("✗ Element does not exist in DOM: " + locator);
             return false;
         }
     }
@@ -63,10 +68,10 @@ public class AssertUtils {
         try {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(ConfigConstants.WAIT_TIMEOUT_SECONDS));
             wait.until(ExpectedConditions.elementToBeClickable(locator));
-            System.out.println("✓ Element is clickable: " + locator);
+            logger.info("✓ Element is clickable: " + locator);
             return true;
         } catch (Exception e) {
-            System.out.println("✗ Element is not clickable: " + locator);
+            logger.info("✗ Element is not clickable: " + locator);
             return false;
         }
     }
@@ -83,13 +88,13 @@ public class AssertUtils {
             WebElement element = driver.findElement(locator);
             boolean isEnabled = element.isEnabled();
             if (isEnabled) {
-                System.out.println("✓ Element is enabled: " + locator);
+                logger.info("✓ Element is enabled: " + locator);
             } else {
-                System.out.println("✗ Element is not enabled: " + locator);
+                logger.info("✗ Element is not enabled: " + locator);
             }
             return isEnabled;
         } catch (Exception e) {
-            System.out.println("✗ Cannot determine if element is enabled: " + locator);
+            logger.info("✗ Cannot determine if element is enabled: " + locator);
             return false;
         }
     }
@@ -107,14 +112,14 @@ public class AssertUtils {
             WebElement element = driver.findElement(locator);
             String actualText = element.getText();
             if (actualText.equals(expectedText)) {
-                System.out.println("✓ Text matches. Expected: " + expectedText + ", Actual: " + actualText);
+                logger.info("✓ Text matches. Expected: " + expectedText + ", Actual: " + actualText);
                 return true;
             } else {
-                System.out.println("✗ Text does not match. Expected: " + expectedText + ", Actual: " + actualText);
+                logger.info("✗ Text does not match. Expected: " + expectedText + ", Actual: " + actualText);
                 return false;
             }
         } catch (Exception e) {
-            System.out.println("✗ Error comparing text: " + e.getMessage());
+            logger.info("✗ Error comparing text: " + e.getMessage());
             return false;
         }
     }
@@ -132,14 +137,14 @@ public class AssertUtils {
             WebElement element = driver.findElement(locator);
             String actualText = element.getText();
             if (actualText.contains(expectedText)) {
-                System.out.println("✓ Text contains: " + expectedText);
+                logger.info("✓ Text contains: " + expectedText);
                 return true;
             } else {
-                System.out.println("✗ Text does not contain: " + expectedText + ". Actual: " + actualText);
+                logger.info("✗ Text does not contain: " + expectedText + ". Actual: " + actualText);
                 return false;
             }
         } catch (Exception e) {
-            System.out.println("✗ Error checking text content: " + e.getMessage());
+            logger.info("✗ Error checking text content: " + e.getMessage());
             return false;
         }
     }
@@ -155,14 +160,14 @@ public class AssertUtils {
         try {
             String currentUrl = driver.getCurrentUrl();
             if (currentUrl.contains(expectedUrl)) {
-                System.out.println("✓ URL contains: " + expectedUrl);
+                logger.info("✓ URL contains: " + expectedUrl);
                 return true;
             } else {
-                System.out.println("✗ URL does not contain: " + expectedUrl + ". Current URL: " + currentUrl);
+                logger.info("✗ URL does not contain: " + expectedUrl + ". Current URL: " + currentUrl);
                 return false;
             }
         } catch (Exception e) {
-            System.out.println("✗ Error checking URL: " + e.getMessage());
+            logger.info("✗ Error checking URL: " + e.getMessage());
             return false;
         }
     }
@@ -178,14 +183,14 @@ public class AssertUtils {
         try {
             String currentUrl = driver.getCurrentUrl();
             if (currentUrl.equals(expectedUrl)) {
-                System.out.println("✓ URL matches: " + expectedUrl);
+                logger.info("✓ URL matches: " + expectedUrl);
                 return true;
             } else {
-                System.out.println("✗ URL does not match. Expected: " + expectedUrl + ", Current: " + currentUrl);
+                logger.info("✗ URL does not match. Expected: " + expectedUrl + ", Current: " + currentUrl);
                 return false;
             }
         } catch (Exception e) {
-            System.out.println("✗ Error checking URL: " + e.getMessage());
+            logger.info("✗ Error checking URL: " + e.getMessage());
             return false;
         }
     }

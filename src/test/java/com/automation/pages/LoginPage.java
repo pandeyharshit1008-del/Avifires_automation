@@ -10,6 +10,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.time.Duration;
 import java.util.Map;
 
@@ -18,6 +20,8 @@ import java.util.Map;
  * Contains all login-related actions and workflows
  */
 public class LoginPage {
+
+    private static final Logger logger = LoggerFactory.getLogger(LoginPage.class);
 
     private WebDriver driver;
     private WebDriverWait wait;
@@ -37,7 +41,7 @@ public class LoginPage {
      */
     public void navigateToLoginPage() {
         driver.navigate().to(ConfigConstants.LOGIN_PAGE_URL);
-        System.out.println("✓ Navigated to login page");
+        logger.info("✓ Navigated to login page");
         AssertUtils.assertVisible(driver, LoginLocators.LOGIN_SIGNUP_BUTTON);
     }
     
@@ -47,13 +51,13 @@ public class LoginPage {
         driver.findElement(LoginLocators.OPEN_SIDEBAR_BUTTON).click();
         AssertUtils.assertClickable(driver, LoginLocators.MOVE_TO_HOME_PAGE_BUTTON);
         driver.findElement(LoginLocators.MOVE_TO_HOME_PAGE_BUTTON).click();
-        System.out.println("✓ Navigated to home page");
+        logger.info("✓ Navigated to home page");
     }
 
     public void moveToQuestionnairePage() {
         AssertUtils.assertClickable(driver, LoginLocators.QUESTIONNAIRE_PAGE_BUTTON);
         driver.findElement(LoginLocators.QUESTIONNAIRE_PAGE_BUTTON).click();
-        System.out.println("✓ Navigated to questionnaire page");
+        logger.info("✓ Navigated to questionnaire page");
     }
 
     public void selectInvestmentGoal(String goal) {
@@ -64,7 +68,7 @@ public class LoginPage {
         );
 
         element.click();
-        System.out.println("✓ Selected investment goal: " + goal);
+        logger.info("✓ Selected investment goal: " + goal);
     }
 
     public void answerQuestionnaireQuestions(String optionText) {
@@ -75,7 +79,7 @@ public class LoginPage {
         );
 
         element.click();
-        System.out.println("✓ Selected radio option: " + optionText);
+        logger.info("✓ Selected radio option: " + optionText);
     }
 
     public void setCorpusNeeded(int amount) {
@@ -85,7 +89,7 @@ public class LoginPage {
 
         corpusInput.clear();
         corpusInput.sendKeys(String.valueOf(amount));
-        System.out.println("✓ Set corpus needed to: " + amount);
+        logger.info("✓ Set corpus needed to: " + amount);
     }
 
     public void setTimeOfInvestment(int years) {
@@ -95,13 +99,13 @@ public class LoginPage {
 
         timeInput.clear();
         timeInput.sendKeys(String.valueOf(years));
-        System.out.println("✓ Set time of investment to: " + years);
+        logger.info("✓ Set time of investment to: " + years);
     }
 
     public void submitInvestmentPlan() {
         AssertUtils.assertClickable(driver, LoginLocators.INVESTMENT_GOAL_SUBMIT_BUTTON);
         driver.findElement(LoginLocators.INVESTMENT_GOAL_SUBMIT_BUTTON).click();
-        System.out.println("✓ Investment plan submitted");
+        logger.info("✓ Investment plan submitted");
     }
 
     /**
@@ -110,7 +114,7 @@ public class LoginPage {
     public void openSidebar() {
         AssertUtils.assertVisible(driver, LoginLocators.OPEN_SIDEBAR_BUTTON);
         driver.findElement(LoginLocators.OPEN_SIDEBAR_BUTTON).click();
-        System.out.println("✓ Sidebar opened");
+        logger.info("✓ Sidebar opened");
     }
 
     /**
@@ -119,7 +123,7 @@ public class LoginPage {
     public void clickLoginSignUpButton() {
         AssertUtils.assertClickable(driver, LoginLocators.LOGIN_SIGNUP_BUTTON);
         driver.findElement(LoginLocators.LOGIN_SIGNUP_BUTTON).click();
-        System.out.println("✓ Log In / Sign Up clicked");
+        logger.info("✓ Log In / Sign Up clicked");
     }
 
     /**
@@ -128,7 +132,7 @@ public class LoginPage {
     public void clickPasswordTab() {
         AssertUtils.assertClickable(driver, LoginLocators.PASSWORD_TAB);
         driver.findElement(LoginLocators.PASSWORD_TAB).click();
-        System.out.println("✓ Password tab selected");
+        logger.info("✓ Password tab selected");
     }
 
     /**
@@ -140,19 +144,19 @@ public class LoginPage {
         wait.until(ExpectedConditions.visibilityOfElementLocated(LoginLocators.MOBILE_INPUT));
         driver.findElement(LoginLocators.MOBILE_INPUT).clear();
         driver.findElement(LoginLocators.MOBILE_INPUT).sendKeys(mobile);
-        System.out.println("✓ Mobile entered");
+        logger.info("✓ Mobile entered");
     }
 
     public void selectPreferencesAndPriorities() {
         AssertUtils.assertClickable(driver, LoginLocators.PREFERENCES_AND_PRIORITIES_SUBMIT_BUTTON);
         driver.findElement(LoginLocators.PREFERENCES_AND_PRIORITIES_SUBMIT_BUTTON).click();
-        System.out.println("✓ Preferences and Priorities selected");
+        logger.info("✓ Preferences and Priorities selected");
     }
 
     public void submitPreferencesAndPriorities() {
         AssertUtils.assertClickable(driver, LoginLocators.PREFERENCES_AND_PRIORITIES_SUBMIT_BUTTON);
         driver.findElement(LoginLocators.PREFERENCES_AND_PRIORITIES_SUBMIT_BUTTON).click();
-        System.out.println("✓ Preferences and Priorities submitted");
+        logger.info("✓ Preferences and Priorities submitted");
     }
 
     /**
@@ -164,7 +168,7 @@ public class LoginPage {
         wait.until(ExpectedConditions.visibilityOfElementLocated(LoginLocators.PASSWORD_INPUT));
         driver.findElement(LoginLocators.PASSWORD_INPUT).clear();
         driver.findElement(LoginLocators.PASSWORD_INPUT).sendKeys(password);
-        System.out.println("✓ Password entered");
+        logger.info("✓ Password entered");
     }
 
     /**
@@ -173,7 +177,7 @@ public class LoginPage {
     public void clickLoginButton() {
         AssertUtils.assertClickable(driver, LoginLocators.LOGIN_BUTTON);
         driver.findElement(LoginLocators.LOGIN_BUTTON).click();
-        System.out.println("✓ Continue button clicked");
+        logger.info("✓ Continue button clicked");
     }
 
     /**
@@ -182,7 +186,7 @@ public class LoginPage {
     public void clickSupportButton() {
         AssertUtils.assertClickable(driver, LoginLocators.SUPPORT);
         driver.findElement(LoginLocators.SUPPORT).click();
-        System.out.println("✓ Support button clicked");
+        logger.info("✓ Support button clicked");
     }
 
     /**
@@ -191,7 +195,7 @@ public class LoginPage {
     public void clickRequestOtpButton() {
         AssertUtils.assertClickable(driver, LoginLocators.REQUEST_OTP_BUTTON);
         driver.findElement(LoginLocators.REQUEST_OTP_BUTTON).click();
-        System.out.println("✓ Request OTP button clicked");
+        logger.info("✓ Request OTP button clicked");
     }
 
     /**
@@ -203,7 +207,7 @@ public class LoginPage {
         wait.until(ExpectedConditions.visibilityOfElementLocated(LoginLocators.OTP_INPUT));
         driver.findElement(LoginLocators.OTP_INPUT).clear();
         driver.findElement(LoginLocators.OTP_INPUT).sendKeys(otp);
-        System.out.println("✓ OTP entered: " + otp);
+        logger.info("✓ OTP entered: " + otp);
     }
 
     /**
@@ -215,7 +219,7 @@ public class LoginPage {
         wait.until(ExpectedConditions.visibilityOfElementLocated(LoginLocators.PASSWORD_OTP_INPUT));
         driver.findElement(LoginLocators.PASSWORD_OTP_INPUT).clear();
         driver.findElement(LoginLocators.PASSWORD_OTP_INPUT).sendKeys(otp);
-        System.out.println("✓ Password OTP entered: " + otp);
+        logger.info("✓ Password OTP entered: " + otp);
     }
 
     /**
@@ -224,7 +228,7 @@ public class LoginPage {
     public void clickVerifyOtpButton() {
         AssertUtils.assertClickable(driver, LoginLocators.VERIFY_OTP_BUTTON);
         driver.findElement(LoginLocators.VERIFY_OTP_BUTTON).click();
-        System.out.println("✓ Verify OTP button clicked");
+        logger.info("✓ Verify OTP button clicked");
     }
 
     /**
@@ -234,14 +238,14 @@ public class LoginPage {
      * @param password Password
      */
     public void login(String mobile, String password) {
-        System.out.println("\n--- Starting Login Flow ---");
+        logger.info("\n--- Starting Login Flow ---");
         navigateToLoginPage();
         clickLoginSignUpButton();
         clickPasswordTab();
         enterMobile(mobile);
         enterPassword(password);
         clickLoginButton();
-        System.out.println("✓ Login completed");
+        logger.info("✓ Login completed");
     }
 
     /**
@@ -250,11 +254,11 @@ public class LoginPage {
      * @param userType User type from JSON (e.g., "validUser", "invalidUser")
      */
     public void loginWithTestData(String userType) {
-        System.out.println("\n--- Starting Login Flow with Test Data ---");
+        logger.info("\n--- Starting Login Flow with Test Data ---");
         Map<String, String> userData = TestDataReader.getUser(userType);
         
         if (userData.isEmpty()) {
-            System.out.println("✗ Failed to load user data for: " + userType);
+            logger.info("✗ Failed to load user data for: " + userType);
             return;
         }
 
@@ -271,13 +275,13 @@ public class LoginPage {
      * @param otp OTP code
      */
     public void loginWithOtp(String mobile, String otp) {
-        System.out.println("\n--- Starting OTP Login Flow ---");
+        logger.info("\n--- Starting OTP Login Flow ---");
         navigateToLoginPage();
         enterMobile(mobile);
         clickRequestOtpButton();
         enterOtp(otp);
         clickVerifyOtpButton();
-        System.out.println("✓ OTP login completed");
+        logger.info("✓ OTP login completed");
     }
     
     /**
@@ -317,9 +321,9 @@ public class LoginPage {
         int movePixels =
                 (int)((targetPercent - currentPercent) * sliderWidth);
 
-        System.out.println("Current value : " + current);
-        System.out.println("Target value  : " + targetAmount);
-        System.out.println("Move pixels   : " + movePixels);
+        logger.info("Current value : " + current);
+        logger.info("Target value  : " + targetAmount);
+        logger.info("Move pixels   : " + movePixels);
 
         new Actions(driver)
                 .clickAndHold(thumb)
@@ -338,12 +342,12 @@ public class LoginPage {
             int newValue =
                     Integer.parseInt(valueInput.getAttribute("aria-valuenow"));
 
-            System.out.println("Slider value = " + newValue);
+            logger.info("Slider value = " + newValue);
 
             return Math.abs(newValue - targetAmount) <= tolerance;
         });
 
-        System.out.println("✓ Investment amount set successfully.");
+        logger.info("✓ Investment amount set successfully.");
     }
     
     // Set the expected return on the financial calculator slider
@@ -379,9 +383,9 @@ public class LoginPage {
         int movePixels =
                 (int) ((targetPercent - currentPercent) * sliderWidth);
 
-        System.out.println("Current Return : " + current);
-        System.out.println("Target Return  : " + targetReturn);
-        System.out.println("Move Pixels    : " + movePixels);
+        logger.info("Current Return : " + current);
+        logger.info("Target Return  : " + targetReturn);
+        logger.info("Move Pixels    : " + movePixels);
 
         new Actions(driver)
                 .clickAndHold(thumb)
@@ -402,7 +406,7 @@ public class LoginPage {
                             " but slider stopped at " + actual);
         }
 
-        System.out.println("✓ Expected return set to " + actual + "%");
+        logger.info("✓ Expected return set to " + actual + "%");
     }
     
     // Set the time period on the financial calculator slider
@@ -438,9 +442,9 @@ public class LoginPage {
         int movePixels =
                 (int) ((targetPercent - currentPercent) * sliderWidth);
 
-        System.out.println("Current Time Period : " + current);
-        System.out.println("Target Time Period  : " + targetYears);
-        System.out.println("Move Pixels         : " + movePixels);
+        logger.info("Current Time Period : " + current);
+        logger.info("Target Time Period  : " + targetYears);
+        logger.info("Move Pixels         : " + movePixels);
 
         new Actions(driver)
                 .clickAndHold(thumb)
@@ -461,7 +465,7 @@ public class LoginPage {
                     " years but slider stopped at " + actual + " years.");
         }
 
-        System.out.println("✓ Time period set to " + actual + " years");
+        logger.info("✓ Time period set to " + actual + " years");
     }
 
     public void getSIPValue() {
@@ -470,7 +474,7 @@ public class LoginPage {
                         LoginLocators.InvestmentAmount)); 
 
         String sipValueText = sipValueElement.getText();
-        System.out.println("✓ SIP Value: " + sipValueText);
+        logger.info("✓ SIP Value: " + sipValueText);
     }
 
     /**

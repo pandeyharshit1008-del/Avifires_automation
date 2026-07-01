@@ -1,5 +1,8 @@
 package com.automation.utils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -13,6 +16,8 @@ import java.util.Map;
  */
 public class TestDataReader {
 
+    private static final Logger logger = LoggerFactory.getLogger(TestDataReader.class);
+
     private static final ObjectMapper mapper = new ObjectMapper();
 
     /**
@@ -25,13 +30,12 @@ public class TestDataReader {
         try {
             File file = new File(filePath);
             if (!file.exists()) {
-                System.out.println("Warning: Test data file not found at " + filePath);
+                logger.info("Warning: Test data file not found at " + filePath);
                 return null;
             }
             return mapper.readTree(file);
         } catch (IOException e) {
-            System.out.println("Error reading JSON file: " + e.getMessage());
-            e.printStackTrace();
+            logger.error("Error reading JSON file", e);
             return null;
         }
     }
@@ -67,7 +71,7 @@ public class TestDataReader {
             userData.put("mobile", mobile);
             userData.put("password", password);
 
-            System.out.println("✓ Test data loaded for user: " + userType);
+            logger.info("✓ Test data loaded for user: " + userType);
             return userData;
         } catch (Exception e) {
             throw new RuntimeException("Failed to decrypt credentials for user: " + userType + ". Cause: " + e.getMessage(), e);
@@ -105,7 +109,7 @@ public class TestDataReader {
                 signupData.put(entry.getKey(), value);
             });
 
-            System.out.println("✓ Signup data loaded for: " + dataKey);
+            logger.info("✓ Signup data loaded for: " + dataKey);
             return signupData;
         } catch (RuntimeException re) {
             throw re;
@@ -128,7 +132,7 @@ public class TestDataReader {
                 return root.get(key).asText();
             }
         } catch (Exception e) {
-            System.out.println("Error fetching JSON value: " + e.getMessage());
+            logger.info("Error fetching JSON value: " + e.getMessage());
         }
         return null;
     }

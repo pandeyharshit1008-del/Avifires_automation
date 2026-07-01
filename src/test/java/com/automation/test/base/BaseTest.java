@@ -5,6 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
 
@@ -13,6 +15,8 @@ import java.time.Duration;
  * All test classes should extend this class
  */
 public class BaseTest {
+
+    private static final Logger logger = LoggerFactory.getLogger(BaseTest.class);
 
     protected WebDriver driver;
     protected WebDriverWait wait;
@@ -28,7 +32,7 @@ public class BaseTest {
         // Initialize explicit wait (10 seconds)
         wait = new WebDriverWait(driver, Duration.ofSeconds(ConfigConstants.WAIT_TIMEOUT_SECONDS));
 
-        System.out.println("\n===== Test Setup Complete =====");
+        logger.info("\n===== Test Setup Complete =====");
     }
 
     /**
@@ -37,7 +41,7 @@ public class BaseTest {
      */
     @AfterMethod
     public void tearDown() {
-        System.out.println("===== Test Teardown Started =====\n");
+        logger.info("===== Test Teardown Started =====\n");
         DriverManager.quitDriver();
     }
 
@@ -48,7 +52,7 @@ public class BaseTest {
      */
     protected void navigateTo(String url) {
         driver.navigate().to(url);
-        System.out.println("✓ Navigated to: " + url);
+        logger.info("✓ Navigated to: " + url);
     }
 
 }

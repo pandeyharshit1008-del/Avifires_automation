@@ -7,6 +7,8 @@ import com.automation.utils.ConfigConstants;
 import com.automation.utils.OTPInterceptor;
 import com.automation.utils.TestDataReader;
 import org.testng.annotations.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 
@@ -15,19 +17,21 @@ import java.util.Map;
  */
 public class LoginTest extends BaseTest {
 
+    private static final Logger logger = LoggerFactory.getLogger(LoginTest.class);
+
     /**
      * Test valid login with mobile and password
      */
     @Test
     public void testValidLogin() {
-        System.out.println("\n========== TEST: Valid Login ==========");
+        logger.info("\n========== TEST: Valid Login ==========");
         
         LoginPage loginPage = new LoginPage(driver);
 
         // Load encrypted credentials from test data and decrypt at runtime
         Map<String, String> userData = TestDataReader.getUser("validUser");
         if (userData.isEmpty()) {
-            System.out.println("✗ Test data not available for validUser");
+            logger.info("✗ Test data not available for validUser");
             return;
         }
 
@@ -39,9 +43,9 @@ public class LoginTest extends BaseTest {
 
         // Verify login success with exact dashboard URL
         if (AssertUtils.assertUrlEquals(driver, ConfigConstants.DASHBOARD_URL)) {
-            System.out.println("✓ Test Passed: Valid login successful");
+            logger.info("✓ Test Passed: Valid login successful");
         } else {
-            System.out.println("✗ Test Failed: Login did not navigate to dashboard");
+            logger.info("✗ Test Failed: Login did not navigate to dashboard");
         }
         loginPage.clickSupportButton(); // Click support button after login
     }
@@ -51,7 +55,7 @@ public class LoginTest extends BaseTest {
      */
     @Test
     public void testFinancialReturnCalculator() {
-        System.out.println("\n========== TEST: Financial Return Calculator ==========");
+        logger.info("\n========== TEST: Financial Return Calculator ==========");
         // Implementation for financial return calculator tests
 
         LoginPage loginPage = new LoginPage(driver);
@@ -59,7 +63,7 @@ public class LoginTest extends BaseTest {
         // Load encrypted credentials from test data and decrypt at runtime
         Map<String, String> userData = TestDataReader.getUser("validUser");
         if (userData.isEmpty()) {
-            System.out.println("✗ Test data not available for validUser");
+            logger.info("✗ Test data not available for validUser");
             return;
         }
 
@@ -71,9 +75,9 @@ public class LoginTest extends BaseTest {
 
         // Verify login success with exact dashboard URL
         if (AssertUtils.assertUrlEquals(driver, ConfigConstants.DASHBOARD_URL)) {
-            System.out.println("✓ Test Passed: Valid login successful");
+            logger.info("✓ Test Passed: Valid login successful");
         } else {
-            System.out.println("✗ Test Failed: Login did not navigate to dashboard");
+            logger.info("✗ Test Failed: Login did not navigate to dashboard");
         }
         loginPage.moveToHomePage(); // Navigate to home page after login
         loginPage.setInvestmentAmount(500000); // Click the financial calculator slider
