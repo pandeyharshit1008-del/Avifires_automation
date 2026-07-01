@@ -1,0 +1,26 @@
+{
+  "validSignup": {
+    "email": "CtJhzW7h9K5Z+Q8J3mL2qQ==",
+    "firstName": "John",
+    "lastName": "Doe",
+    "mobile": "CtJhzW7h9K5Z+Q8J3mL2qQ==",
+    "password": "2QTwp/VkTaLz8W5LxM9Y6Q==",
+    "confirmPassword": "2QTwp/VkTaLz8W5LxM9Y6Q=="
+  },
+  "invalidEmail": {
+    "email": "invalidemailencrypted12345",
+    "firstName": "Jane",
+    "lastName": "Smith",
+    "mobile": "CtJhzW7h9K5Z+Q8J3mL2qQ==",
+    "password": "2QTwp/VkTaLz8W5LxM9Y6Q==",
+    "confirmPassword": "2QTwp/VkTaLz8W5LxM9Y6Q=="
+  },
+  "passwordMismatch": {
+    "email": "CtJhzW7h9K5Z+Q8J3mL2qQ==",
+    "firstName": "Test",
+    "lastName": "User",
+    "mobile": "CtJhzW7h9K5Z+Q8J3mL2qQ==",
+    "password": "2QTwp/VkTaLz8W5LxM9Y6Q==",
+    "confirmPassword": "mismatchpasswordencrypted"
+  }
+}

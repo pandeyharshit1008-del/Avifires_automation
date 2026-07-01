@@ -1,0 +1,14 @@
+{
+  "validUser": {
+    "mobile": "U5ycEiD6BKf6sOGlHD2dhg==",
+    "password": "obUlJEX5JNk2N1IjLJ5vzw=="
+  },
+  "invalidUser": {
+    "mobile": "CtJhzW7h9K5Z+Q8J3mL2qQ==",
+    "password": "wrongpasswordencrypted123"
+  },
+  "testUser": {
+    "mobile": "CtJhzW7h9K5Z+Q8J3mL2qQ==",
+    "password": "2QTwp/VkTaLz8W5LxM9Y6Q=="
+  }
+}

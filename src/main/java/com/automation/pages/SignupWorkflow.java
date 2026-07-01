@@ -1,0 +1,89 @@
+package com.automation.pages;
+
+import com.automation.utils.OTPInterceptor;
+import com.automation.utils.UserCredentials;
+import com.github.javafaker.Faker;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
+
+/**
+ * High-level signup workflow that encapsulates the business flow and OTP handling.
+ */
+public class SignupWorkflow {
+
+    private final WebDriver driver;
+    private final SignupPage signupPage;
+    private final LoginPage loginPage;
+    private final OTPInterceptor otpInterceptor;
+    private final WebDriverWait otpWait;
+
+    public SignupWorkflow(WebDriver driver) {
+        this.driver = driver;
+        this.signupPage = new SignupPage(driver);
+        this.loginPage = new LoginPage(driver);
+        this.otpInterceptor = new OTPInterceptor(driver);
+        this.otpWait = new WebDriverWait(driver, Duration.ofSeconds(15));
+    }
+
+    public UserCredentials generateRandomUser() {
+        Faker faker = new Faker();
+
+        String email = faker.internet().emailAddress();
+        String firstName = faker.name().firstName();
+        String lastName = faker.name().lastName();
+        String mobile = "+91" + faker.regexify("[6-9][0-9]{9}");
+        String password = faker.internet().password(12, 16, true, true, true);
+
+        UserCredentials user = new UserCredentials(email, firstName, lastName, mobile, password, password);
+        System.out.println("Generated mobile: " + user.getMobile());
+        System.out.println("Generated password: " + user.getPassword());
+        return user;
+    }
+
+    public void startOtpCapture() {
+        otpInterceptor.startListening();
+    }
+
+    public void Signup(UserCredentials user) {
+        signupPage.signUpWithPassword(user);
+        verifyOtp();
+    }
+
+    public void completeSignup(UserCredentials user) {
+        signupPage.signUpWithPassword(user);
+        verifyOtp();
+        signupPage.enterSignupFormDetails(user);
+    }
+
+    public boolean verifySignupSuccess() {
+        boolean success = signupPage.verifySignupSuccess();
+        if (success) {
+            System.out.println("Signup successful");
+        }
+        return success;
+    }
+
+    public void stopOtpCapture() {
+        otpInterceptor.stopListening();
+    }
+
+    private void verifyOtp() {
+        String otp = waitForOtp();
+        if (otp == null || otp.isBlank()) {
+            throw new IllegalStateException("OTP was not captured for signup");
+        }
+
+        System.out.println("OTP captured");
+        signupPage.enterPasswordOtp(otp);
+        signupPage.clickVerifyOtpButton();
+    }
+
+    private String waitForOtp() {
+        return otpWait.until(driver -> {
+            String capturedOtp = otpInterceptor.getCapturedOtp();
+            return (capturedOtp != null && !capturedOtp.isBlank()) ? capturedOtp : null;
+        });
+    }
+}

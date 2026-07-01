@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="UI Automation Test Suite" parallel="false">
+    
+    <test name="Login Tests">
+        <classes>
+            <class name="com.automation.login.LoginTest"/>
+        </classes>
+    </test>
+
+    <test name="Signup Tests">
+        <classes>
+            <class name="com.automation.signup.SignupTest"/>
+        </classes>
+    </test>
+
+    <test name="Upload Tests">
+        <classes>
+            <class name="com.automation.upload.UploadDocumentTest"/>
+        </classes>
+    </test>
+
+</suite>
