@@ -186,7 +186,7 @@ public class AssertUtils {
                 logger.info("✓ URL matches: " + expectedUrl);
                 return true;
             } else {
-                logger.info("✗ URL does not match. Expected: " + expectedUrl + ", Current: " + currentUrl);
+//                logger.info("✗ URL does not match. Expected: " + expectedUrl + ", Current: " + currentUrl);
                 return false;
             }
         } catch (Exception e) {

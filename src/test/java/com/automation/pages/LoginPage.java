@@ -5,9 +5,6 @@ import com.automation.utils.AssertUtils;
 import com.automation.utils.ConfigConstants;
 import com.automation.utils.TestDataReader;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.By;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
@@ -44,7 +41,6 @@ public class LoginPage {
         logger.info("✓ Navigated to login page");
         AssertUtils.assertVisible(driver, LoginLocators.LOGIN_SIGNUP_BUTTON);
     }
-    
 
     public void moveToHomePage() {
         AssertUtils.assertVisible(driver, LoginLocators.OPEN_SIDEBAR_BUTTON);
@@ -60,52 +56,10 @@ public class LoginPage {
         logger.info("✓ Navigated to questionnaire page");
     }
 
-    public void selectInvestmentGoal(String goal) {
-        By locator = By.xpath(String.format(LoginLocators.INVESTMENT_GOAL_OPTION, goal));
-
-        WebElement element = wait.until(
-            ExpectedConditions.elementToBeClickable(locator)
-        );
-
-        element.click();
-        logger.info("✓ Selected investment goal: " + goal);
-    }
-
-    public void answerQuestionnaireQuestions(String optionText) {
-        By locator = By.xpath(String.format(LoginLocators.RADIO_OPTION_BY_TEXT, optionText));
-
-        WebElement element = wait.until(
-            ExpectedConditions.elementToBeClickable(locator)
-        );
-
-        element.click();
-        logger.info("✓ Selected radio option: " + optionText);
-    }
-
-    public void setCorpusNeeded(int amount) {
-        WebElement corpusInput = wait.until(
-            ExpectedConditions.visibilityOfElementLocated(LoginLocators.CORPUS_NEEDED_INPUT)
-        );
-
-        corpusInput.clear();
-        corpusInput.sendKeys(String.valueOf(amount));
-        logger.info("✓ Set corpus needed to: " + amount);
-    }
-
-    public void setTimeOfInvestment(int years) {
-        WebElement timeInput = wait.until(
-            ExpectedConditions.visibilityOfElementLocated(LoginLocators.TIME_OF_INVESTMENT)
-        );
-
-        timeInput.clear();
-        timeInput.sendKeys(String.valueOf(years));
-        logger.info("✓ Set time of investment to: " + years);
-    }
-
-    public void submitInvestmentPlan() {
-        AssertUtils.assertClickable(driver, LoginLocators.INVESTMENT_GOAL_SUBMIT_BUTTON);
-        driver.findElement(LoginLocators.INVESTMENT_GOAL_SUBMIT_BUTTON).click();
-        logger.info("✓ Investment plan submitted");
+    public void moveToPortfolioPage() {
+        AssertUtils.assertClickable(driver, LoginLocators.PORTFOLIO_PAGE_BUTTON);
+        driver.findElement(LoginLocators.PORTFOLIO_PAGE_BUTTON).click();
+        logger.info("Navigated to My Profile Page");
     }
 
     /**
@@ -145,18 +99,6 @@ public class LoginPage {
         driver.findElement(LoginLocators.MOBILE_INPUT).clear();
         driver.findElement(LoginLocators.MOBILE_INPUT).sendKeys(mobile);
         logger.info("✓ Mobile entered");
-    }
-
-    public void selectPreferencesAndPriorities() {
-        AssertUtils.assertClickable(driver, LoginLocators.PREFERENCES_AND_PRIORITIES_SUBMIT_BUTTON);
-        driver.findElement(LoginLocators.PREFERENCES_AND_PRIORITIES_SUBMIT_BUTTON).click();
-        logger.info("✓ Preferences and Priorities selected");
-    }
-
-    public void submitPreferencesAndPriorities() {
-        AssertUtils.assertClickable(driver, LoginLocators.PREFERENCES_AND_PRIORITIES_SUBMIT_BUTTON);
-        driver.findElement(LoginLocators.PREFERENCES_AND_PRIORITIES_SUBMIT_BUTTON).click();
-        logger.info("✓ Preferences and Priorities submitted");
     }
 
     /**
@@ -239,13 +181,20 @@ public class LoginPage {
      */
     public void login(String mobile, String password) {
         logger.info("\n--- Starting Login Flow ---");
+
         navigateToLoginPage();
         clickLoginSignUpButton();
         clickPasswordTab();
         enterMobile(mobile);
         enterPassword(password);
         clickLoginButton();
+
         logger.info("✓ Login completed");
+        if (AssertUtils.assertUrlEquals(driver, ConfigConstants.DASHBOARD_URL)) {
+            logger.info("✓ Test Passed: Valid login successful");
+        } else {
+            logger.info("✗ Test Failed: Login did not navigate to dashboard");
+        }
     }
 
     /**
@@ -282,199 +231,6 @@ public class LoginPage {
         enterOtp(otp);
         clickVerifyOtpButton();
         logger.info("✓ OTP login completed");
-    }
-    
-    /**
-     * Set the investment amount on the financial return calculator slider
-     *
-     * @param amount The investment amount to set
-     */
-    public void setInvestmentAmount(int targetAmount) {
-
-        WebElement slider = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(
-                        LoginLocators.FINANCIAL_CALCULATOR_SLIDER));
-
-        WebElement thumb = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(
-                        LoginLocators.FINANCIAL_CALCULATOR_SLIDER_THUMB));
-
-        WebElement input = thumb.findElement(By.cssSelector("input[type='range']"));
-
-        int min = Integer.parseInt(input.getAttribute("min"));
-        int max = Integer.parseInt(input.getAttribute("max"));
-        int current = Integer.parseInt(input.getAttribute("aria-valuenow"));
-
-        if (targetAmount < min || targetAmount > max) {
-            throw new IllegalArgumentException(
-                    "Investment amount must be between " + min + " and " + max);
-        }
-
-        int sliderWidth = slider.getSize().getWidth();
-
-        double currentPercent =
-                (double)(current - min) / (max - min);
-
-        double targetPercent =
-                (double)(targetAmount - min) / (max - min);
-
-        int movePixels =
-                (int)((targetPercent - currentPercent) * sliderWidth);
-
-        logger.info("Current value : " + current);
-        logger.info("Target value  : " + targetAmount);
-        logger.info("Move pixels   : " + movePixels);
-
-        new Actions(driver)
-                .clickAndHold(thumb)
-                .moveByOffset(movePixels, 0)
-                .release()
-                .perform();
-
-        int tolerance = 50000; // Accept ±50,000
-
-        wait.until(driver -> {
-
-            WebElement valueInput =
-                    driver.findElement(LoginLocators.FINANCIAL_CALCULATOR_SLIDER_THUMB)
-                        .findElement(By.cssSelector("input[type='range']"));
-
-            int newValue =
-                    Integer.parseInt(valueInput.getAttribute("aria-valuenow"));
-
-            logger.info("Slider value = " + newValue);
-
-            return Math.abs(newValue - targetAmount) <= tolerance;
-        });
-
-        logger.info("✓ Investment amount set successfully.");
-    }
-    
-    // Set the expected return on the financial calculator slider
-    public void setExpectedReturn(int targetReturn) {
-
-        WebElement slider = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(
-                        LoginLocators.EXPECTED_RETURN_SLIDER));
-
-        WebElement thumb = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(
-                        LoginLocators.EXPECTED_RETURN_SLIDER_THUMB));
-
-        WebElement input = thumb.findElement(By.cssSelector("input[type='range']"));
-
-        int min = Integer.parseInt(input.getAttribute("min"));
-        int max = Integer.parseInt(input.getAttribute("max"));
-        int current = Integer.parseInt(input.getAttribute("aria-valuenow"));
-
-        if (targetReturn < min || targetReturn > max) {
-            throw new IllegalArgumentException(
-                    "Expected return must be between " + min + " and " + max);
-        }
-
-        int sliderWidth = slider.getSize().getWidth();
-
-        double currentPercent =
-                (double) (current - min) / (max - min);
-
-        double targetPercent =
-                (double) (targetReturn - min) / (max - min);
-
-        int movePixels =
-                (int) ((targetPercent - currentPercent) * sliderWidth);
-
-        logger.info("Current Return : " + current);
-        logger.info("Target Return  : " + targetReturn);
-        logger.info("Move Pixels    : " + movePixels);
-
-        new Actions(driver)
-                .clickAndHold(thumb)
-                .moveByOffset(movePixels, 0)
-                .release()
-                .perform();
-
-        WebElement valueInput = driver.findElement(LoginLocators.EXPECTED_RETURN_SLIDER_THUMB)
-                .findElement(By.cssSelector("input[type='range']"));
-
-        int actual = Integer.parseInt(valueInput.getAttribute("aria-valuenow"));
-
-        int tolerance = 1;
-
-        if (Math.abs(actual - targetReturn) > tolerance) {
-            throw new AssertionError(
-                    "Expected approximately " + targetReturn +
-                            " but slider stopped at " + actual);
-        }
-
-        logger.info("✓ Expected return set to " + actual + "%");
-    }
-    
-    // Set the time period on the financial calculator slider
-    public void setTimePeriod(int targetYears) {
-
-        WebElement slider = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(
-                        LoginLocators.TIME_PERIOD_SLIDER));
-
-        WebElement thumb = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(
-                        LoginLocators.TIME_PERIOD_SLIDER_THUMB));
-
-        WebElement input = thumb.findElement(By.cssSelector("input[type='range']"));
-
-        int min = Integer.parseInt(input.getAttribute("min"));
-        int max = Integer.parseInt(input.getAttribute("max"));
-        int current = Integer.parseInt(input.getAttribute("aria-valuenow"));
-
-        if (targetYears < min || targetYears > max) {
-            throw new IllegalArgumentException(
-                    "Time period must be between " + min + " and " + max + " years.");
-        }
-
-        int sliderWidth = slider.getSize().getWidth();
-
-        double currentPercent =
-                (double) (current - min) / (max - min);
-
-        double targetPercent =
-                (double) (targetYears - min) / (max - min);
-
-        int movePixels =
-                (int) ((targetPercent - currentPercent) * sliderWidth);
-
-        logger.info("Current Time Period : " + current);
-        logger.info("Target Time Period  : " + targetYears);
-        logger.info("Move Pixels         : " + movePixels);
-
-        new Actions(driver)
-                .clickAndHold(thumb)
-                .moveByOffset(movePixels, 0)
-                .release()
-                .perform();
-
-        WebElement valueInput = driver.findElement(LoginLocators.TIME_PERIOD_SLIDER_THUMB)
-                .findElement(By.cssSelector("input[type='range']"));
-
-        int actual = Integer.parseInt(valueInput.getAttribute("aria-valuenow"));
-
-        int tolerance = 1;
-
-        if (Math.abs(actual - targetYears) > tolerance) {
-            throw new AssertionError(
-                    "Expected approximately " + targetYears +
-                    " years but slider stopped at " + actual + " years.");
-        }
-
-        logger.info("✓ Time period set to " + actual + " years");
-    }
-
-    public void getSIPValue() {
-        WebElement sipValueElement = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(
-                        LoginLocators.InvestmentAmount)); 
-
-        String sipValueText = sipValueElement.getText();
-        logger.info("✓ SIP Value: " + sipValueText);
     }
 
     /**

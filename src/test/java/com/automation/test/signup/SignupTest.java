@@ -1,19 +1,15 @@
-package com.automation.signup;
+package com.automation.test.signup;
 
 import com.automation.base.BaseTest;
 import com.automation.pages.SignupWorkflow;
 import com.automation.utils.UserCredentials;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Test class for Signup functionality.
  */
 public class SignupTest extends BaseTest {
-
-    private static final Logger logger = LoggerFactory.getLogger(SignupTest.class);
 
     /**
      * Test successful sign-up using dynamically generated credentials and OTP capture.

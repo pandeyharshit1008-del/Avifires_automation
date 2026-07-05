@@ -1,7 +1,8 @@
+package com.automation.test.Questionnare;
+
 import com.automation.base.BaseTest;
 import com.automation.pages.LoginPage;
-import com.automation.utils.AssertUtils;
-import com.automation.utils.ConfigConstants;
+import com.automation.pages.QuestionnarePage;
 import com.automation.utils.TestDataReader;
 import org.testng.annotations.Test;
 import org.slf4j.Logger;
@@ -15,68 +16,40 @@ public class QuestionnareTest extends BaseTest {
 
     @Test
     public void testInvestmentPlan() {
-        logger.info("\n========== TEST: Investment Plan ==========");
-        // Implementation for investment plan tests
-
         LoginPage loginPage = new LoginPage(driver);
+        QuestionnarePage questionnarePage = new QuestionnarePage(driver);
 
-        // Load encrypted credentials from test data and decrypt at runtime
         Map<String, String> userData = TestDataReader.getUser("validUser");
-        if (userData.isEmpty()) {
-            logger.info("✗ Test data not available for validUser");
-            return;
-        }
+        loginPage.login(userData.get("mobile"), userData.get("password"));
 
-        String mobile = userData.get("mobile");
-        String password = userData.get("password");
+        loginPage.openSidebar();
+        loginPage.moveToQuestionnairePage();
 
-        // Execute login with decrypted credentials
-        loginPage.login(mobile, password);
-
-        // Verify login success with exact dashboard URL
-        if (AssertUtils.assertUrlEquals(driver, ConfigConstants.DASHBOARD_URL)) {
-            logger.info("✓ Test Passed: Valid login successful");
-        } else {
-            logger.info("✗ Test Failed: Login did not navigate to dashboard");
-        }
-        loginPage.openSidebar(); // Open the sidebar
-        loginPage.moveToQuestionnairePage(); // Select the investment plan from the sidebar
-        loginPage.selectInvestmentGoal("Emergency Fund");
-        loginPage.setCorpusNeeded(1000000); // Set the corpus needed to achieve the goal
-        loginPage.setTimeOfInvestment(5); // Set the time of investment to achieve the goal
-        loginPage.submitInvestmentPlan(); // Submit the investment plan
+        questionnarePage.selectInvestmentGoal("Emergency Fund");
+        questionnarePage.setCorpusNeeded(1000000);
+        questionnarePage.setTimeOfInvestment(5);
+        questionnarePage.submitInvestmentPlan();
     }
 
     @Test
     public void testPreferencesAndPriorities() {
-        logger.info("\n========== TEST: Preferences and Priorities ==========");
-        // Implementation for preferences and priorities tests
-
         LoginPage loginPage = new LoginPage(driver);
+        QuestionnarePage questionnarePage = new QuestionnarePage(driver);
 
-        // Load encrypted credentials from test data and decrypt at runtime
         Map<String, String> userData = TestDataReader.getUser("validUser");
-        if (userData.isEmpty()) {
-            logger.info("✗ Test data not available for validUser");
-            return;
-        }
+        loginPage.login(userData.get("mobile"), userData.get("password"));
 
-        String mobile = userData.get("mobile");
-        String password = userData.get("password");
+        loginPage.openSidebar();
+        loginPage.moveToQuestionnairePage();
 
-        // Execute login with decrypted credentials
-        loginPage.login(mobile, password);
+        questionnarePage.selectPreferencesAndPriorities();
+        questionnarePage.answerQuestionnaireQuestions("I avoid risks at all costs");
+        questionnarePage.answerQuestionnaireQuestions("None, I cannot afford to lose money");
+        questionnarePage.moveToNextQuestion();
+        questionnarePage.moveToNextQuestion();
+        questionnarePage.answerQuestionnaireQuestions("Moderate fluctuation");
+        questionnarePage.moveToNextQuestion();
+        questionnarePage.submitPreferencesAndPriorities();
 
-        // Verify login success with exact dashboard URL
-        if (AssertUtils.assertUrlEquals(driver, ConfigConstants.DASHBOARD_URL)) {
-            logger.info("✓ Test Passed: Valid login successful");
-        } else {
-            logger.info("✗ Test Failed: Login did not navigate to dashboard");
-        }
-        loginPage.openSidebar(); // Open the sidebar
-        loginPage.moveToQuestionnairePage(); // Select the preferences and priorities from the sidebar
-        loginPage.selectPreferencesAndPriorities(); // Select preferences and priorities
-        loginPage.answerQuestionnaireQuestions("I avoid risks at all costs"); // Answer the questionnaire questions
-        loginPage.submitPreferencesAndPriorities(); // Submit preferences and priorities
     }
 }
