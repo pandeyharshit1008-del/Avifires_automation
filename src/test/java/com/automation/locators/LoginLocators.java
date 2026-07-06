@@ -23,17 +23,11 @@ public class LoginLocators {
     // Continue / Login button
     public static final By LOGIN_BUTTON = By.xpath("(//button[normalize-space()='continue'])[3]");
 
-    public static final By SUPPORT = By.xpath("//a[normalize-space()='Support']");
-
     // Request OTP button
     public static final By REQUEST_OTP_BUTTON = By.id("requestOtpBtn");
 
     // OTP input field
     public static final By OTP_INPUT = By.id("otpInput");
-    public static final By PASSWORD_OTP_INPUT = By.cssSelector("input[data-testid='passwordotp-input-0']");
-
-    // Verify OTP button
-    public static final By VERIFY_OTP_BUTTON = By.xpath("(//button[normalize-space()='continue'])[4]");
 
     // Error message
     public static final By ERROR_MESSAGE = By.className("error-message");
@@ -50,20 +44,10 @@ public class LoginLocators {
 //    Portfolio Page Button
     public static final By PORTFOLIO_PAGE_BUTTON = By.xpath("//a[normalize-space()='My Portfolio']");
 
-    // Financial return calculator slider
-
-    // Financial return calculator slider thumb
-
     // Sidebar open button
     public static final By OPEN_SIDEBAR_BUTTON = By.cssSelector("button[aria-label='Open sidebar']");
 
-    // Expected Return Slider
 
-    // Expected Return Slider Thumb
-
-    // Time Period Slider
-
-    // Time Period Slider Thumb
 
 
 }

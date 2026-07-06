@@ -9,15 +9,13 @@ public class UserCredentials {
     private final String lastName;
     private final String mobile;
     private final String password;
-    private final String confirmPassword;
 
-    public UserCredentials(String email, String firstName, String lastName, String mobile, String password, String confirmPassword) {
+    public UserCredentials(String email, String firstName, String lastName, String mobile, String password) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.mobile = mobile;
         this.password = password;
-        this.confirmPassword = confirmPassword;
     }
 
     public String getEmail() {
@@ -40,7 +38,4 @@ public class UserCredentials {
         return password;
     }
 
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
 }

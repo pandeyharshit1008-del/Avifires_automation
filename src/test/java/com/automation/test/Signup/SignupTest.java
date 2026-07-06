@@ -1,4 +1,4 @@
-package com.automation.test.signup;
+package com.automation.test.Signup;
 
 import com.automation.base.BaseTest;
 import com.automation.pages.SignupWorkflow;

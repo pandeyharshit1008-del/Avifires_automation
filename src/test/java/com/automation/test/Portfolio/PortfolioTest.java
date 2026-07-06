@@ -3,9 +3,7 @@ package com.automation.test.Portfolio;
 import com.automation.base.BaseTest;
 import com.automation.pages.LoginPage;
 import com.automation.pages.PortfolioPage;
-import com.automation.test.login.LoginTest;
-import com.automation.utils.AssertUtils;
-import com.automation.utils.ConfigConstants;
+import com.automation.test.Login.LoginTest;
 import com.automation.utils.TestDataReader;
 import org.testng.annotations.Test;
 import org.slf4j.Logger;
@@ -41,7 +39,7 @@ public class PortfolioTest extends BaseTest {
         portfolioPage.selectFrequency("Daily");
         portfolioPage.selectInvestmentDate("03-07-2026");
         portfolioPage.enterAmount(12548);
-        portfolioPage.moveToPortfolioPage();
+        portfolioPage.clickAddRecord();
 
     }
 }

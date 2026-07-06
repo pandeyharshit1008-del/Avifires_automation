@@ -2,34 +2,24 @@ package com.automation.pages;
 
 import com.automation.locators.SignupLocators;
 import com.automation.locators.LoginLocators;
-import com.automation.utils.AssertUtils;
 import com.automation.utils.ConfigConstants;
-import com.automation.utils.TestDataReader;
 import com.automation.utils.UserCredentials;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.nio.file.Paths;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-
-import java.time.Duration;
-import java.util.Map;
 
 /**
  * Signup page object
  * Contains all signup-related actions and workflows
  */
-public class SignupPage {
+public class SignupPage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger(SignupPage.class);
 
-    private WebDriver driver;
-    private WebDriverWait wait;
 
     /**
      * Constructor to initialize driver and wait
@@ -37,53 +27,15 @@ public class SignupPage {
      * @param driver WebDriver instance
      */
     public SignupPage(WebDriver driver) {
-        this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(ConfigConstants.WAIT_TIMEOUT_SECONDS));
+        super(driver);
     }
 
     /**
      * Navigate to signup page
      */
     public void navigateToSignupPage() {
-        driver.navigate().to(ConfigConstants.SIGNUP_PAGE_URL);
+        navigateTo(ConfigConstants.SIGNUP_PAGE_URL);
         logger.info("✓ Navigated to signup page");
-        // AssertUtils.assertVisible(driver, SignupLocators.SIGNUP_FORM);
-    }
-
-    /**
-     * Enter email in email input field
-     *
-     * @param email Email address
-     */
-    public void enterEmail(String email) {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(SignupLocators.EMAIL_INPUT));
-        driver.findElement(SignupLocators.EMAIL_INPUT).clear();
-        driver.findElement(SignupLocators.EMAIL_INPUT).sendKeys(email);
-        logger.info("✓ Email entered");
-    }
-
-    /**
-     * Enter first name
-     *
-     * @param firstName First name
-     */
-    public void enterFirstName(String firstName) {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(SignupLocators.FIRST_NAME_INPUT));
-        driver.findElement(SignupLocators.FIRST_NAME_INPUT).clear();
-        driver.findElement(SignupLocators.FIRST_NAME_INPUT).sendKeys(firstName);
-        logger.info("✓ First name entered");
-    }
-
-    /**
-     * Enter last name
-     *
-     * @param lastName Last name
-     */
-    public void enterLastName(String lastName) {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(SignupLocators.LAST_NAME_INPUT));
-        driver.findElement(SignupLocators.LAST_NAME_INPUT).clear();
-        driver.findElement(SignupLocators.LAST_NAME_INPUT).sendKeys(lastName);
-        logger.info("✓ Last name entered");
     }
 
     /**
@@ -92,9 +44,7 @@ public class SignupPage {
      * @param mobile Mobile number
      */
     public void enterMobile(String mobile) {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(SignupLocators.MOBILE_INPUT));
-        driver.findElement(SignupLocators.MOBILE_INPUT).clear();
-        driver.findElement(SignupLocators.MOBILE_INPUT).sendKeys(mobile);
+        type(SignupLocators.MOBILE_INPUT, mobile);
         logger.info("✓ Mobile entered");
     }
 
@@ -104,59 +54,23 @@ public class SignupPage {
      * @param password Password
      */
     public void enterPassword(String password) {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(SignupLocators.PASSWORD_INPUT));
-        driver.findElement(SignupLocators.PASSWORD_INPUT).clear();
-        driver.findElement(SignupLocators.PASSWORD_INPUT).sendKeys(password);
+        type(SignupLocators.PASSWORD_INPUT, password);
         logger.info("✓ Password entered");
-    }
-
-    /**
-     * Enter confirm password
-     *
-     * @param confirmPassword Confirm password
-     */
-    public void enterConfirmPassword(String confirmPassword) {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(SignupLocators.CONFIRM_PASSWORD_INPUT));
-        driver.findElement(SignupLocators.CONFIRM_PASSWORD_INPUT).clear();
-        driver.findElement(SignupLocators.CONFIRM_PASSWORD_INPUT).sendKeys(confirmPassword);
-        logger.info("✓ Confirm password entered");
-    }
-
-    /**
-     * Check terms and conditions checkbox
-     */
-    public void checkTermsCheckbox() {
-        wait.until(ExpectedConditions.elementToBeClickable(SignupLocators.TERMS_CHECKBOX));
-        if (!driver.findElement(SignupLocators.TERMS_CHECKBOX).isSelected()) {
-            driver.findElement(SignupLocators.TERMS_CHECKBOX).click();
-            logger.info("✓ Terms and conditions checked");
-        }
-    }
-
-    /**
-     * Click signup button
-     */
-    public void clickSignupButton() {
-        AssertUtils.assertClickable(driver, SignupLocators.SIGNUP_BUTTON);
-        driver.findElement(SignupLocators.SIGNUP_BUTTON).click();
-        logger.info("✓ Signup button clicked");
     }
 
      /**
      * Click the initial Log In / Sign Up entry button
      */
-    public void clickLoginSignUpButton() {
-        AssertUtils.assertClickable(driver, LoginLocators.LOGIN_SIGNUP_BUTTON);
-        driver.findElement(LoginLocators.LOGIN_SIGNUP_BUTTON).click();
-        logger.info("✓ Log In / Sign Up clicked");
-    }
+     public void clickLoginSignUpButton() {
+         click(LoginLocators.LOGIN_SIGNUP_BUTTON);
+         logger.info("✓ Log In / Sign Up clicked");
+     }
 
     /**
      * Click the Password login tab
      */
     public void clickPasswordTab() {
-        AssertUtils.assertClickable(driver, LoginLocators.PASSWORD_TAB);
-        driver.findElement(LoginLocators.PASSWORD_TAB).click();
+        click(LoginLocators.PASSWORD_TAB);
         logger.info("✓ Password tab selected");
     }
 
@@ -164,33 +78,8 @@ public class SignupPage {
      * Click continue button to submit login form
      */
     public void clickLoginButton() {
-        AssertUtils.assertClickable(driver, LoginLocators.LOGIN_BUTTON);
-        driver.findElement(LoginLocators.LOGIN_BUTTON).click();
+        click(LoginLocators.LOGIN_BUTTON);
         logger.info("✓ Continue button clicked");
-    }
-
-    /**
-     * Complete signup flow using test data from JSON
-     *
-     * @param dataKey Data key from JSON (e.g., "validSignup")
-     */
-    public void signupWithTestData(String dataKey) {
-        logger.info("\n--- Starting Signup Flow with Test Data ---");
-        Map<String, String> signupData = TestDataReader.getSignupData(dataKey);
-
-        if (signupData.isEmpty()) {
-            logger.info("✗ Failed to load signup data for: " + dataKey);
-            return;
-        }
-
-        String email = signupData.getOrDefault("email", "");
-        String firstName = signupData.getOrDefault("firstName", "");
-        String lastName = signupData.getOrDefault("lastName", "");
-        String mobile = signupData.getOrDefault("mobile", "");
-        String password = signupData.getOrDefault("password", "");
-        String confirmPassword = signupData.getOrDefault("confirmPassword", "");
-
-        // signup(email, firstName, lastName, mobile, password, confirmPassword);
     }
 
     /**
@@ -322,10 +211,8 @@ public class SignupPage {
         logger.info("✓ PAN Card verified: " + pan);
     }
 
-    public void enterSignupName(String Name) {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(SignupLocators.SIGNUP_FORM_NAME));
-        driver.findElement(SignupLocators.SIGNUP_FORM_NAME).clear();
-        driver.findElement(SignupLocators.SIGNUP_FORM_NAME).sendKeys(Name);
+    public void enterSignupName(String name) {
+        type(SignupLocators.SIGNUP_FORM_NAME, name);
         logger.info("✓ Name entered");
     }
 
@@ -335,18 +222,15 @@ public class SignupPage {
      * @param otp One-Time Password
      */
     public void enterPasswordOtp(String otp) {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(SignupLocators.PASSWORD_OTP_INPUT));
-        driver.findElement(SignupLocators.PASSWORD_OTP_INPUT).clear();
-        driver.findElement(SignupLocators.PASSWORD_OTP_INPUT).sendKeys(otp);
-        logger.info("✓ Password OTP entered: " + otp);
+        type(SignupLocators.PASSWORD_OTP_INPUT, otp);
+        logger.info("✓ Password OTP entered");
     }
 
     /**
      * Click verify OTP button
      */
     public void clickVerifyOtpButton() {
-        AssertUtils.assertClickable(driver, SignupLocators.VERIFY_OTP_BUTTON);
-        driver.findElement(SignupLocators.VERIFY_OTP_BUTTON).click();
+        click(SignupLocators.VERIFY_OTP_BUTTON);
         logger.info("✓ Verify OTP button clicked");
     }
 
@@ -357,7 +241,7 @@ public class SignupPage {
      * @return true if signup success message is visible, false otherwise
      */
     public boolean verifySignupSuccess() {
-        return AssertUtils.assertVisible(driver, SignupLocators.SIGNUP_FORM_HEADING);
+        return isVisible(SignupLocators.SIGNUP_FORM_HEADING);
     }
 
     /**
@@ -366,7 +250,7 @@ public class SignupPage {
      * @return true if error message is visible, false otherwise
      */
     public boolean verifyErrorMessage() {
-        return AssertUtils.assertVisible(driver, SignupLocators.ERROR_MESSAGE);
+        return isVisible(SignupLocators.ERROR_MESSAGE);
     }
 
     /**
@@ -375,10 +259,6 @@ public class SignupPage {
      * @return Error message text
      */
     public String getErrorMessage() {
-        try {
-            return driver.findElement(SignupLocators.ERROR_MESSAGE).getText();
-        } catch (Exception e) {
-            return "";
-        }
+        return getText(SignupLocators.ERROR_MESSAGE);
     }
 }

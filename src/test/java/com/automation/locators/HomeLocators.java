@@ -17,7 +17,5 @@ public class HomeLocators {
     public static final By TIME_PERIOD_SLIDER_THUMB = By.xpath("//input[@aria-labelledby='time-period-slider']/ancestor::span[contains(@class,'MuiSlider-root')]//span[contains(@class,'MuiSlider-thumb')]");
 
     public static final By InvestmentAmount = By.xpath("(//div[contains(@class,'tw-rounded-md')]//input)[1]");
-    public static final By ExpectedReturn = By.xpath("(//div[contains(@class,'tw-rounded-md')]//input)[2]");
-    public static final By TimePeriod = By.xpath("(//div[contains(@class,'tw-rounded-md')]//input)[3]");
 
 }

@@ -1,10 +1,7 @@
 package com.automation.pages;
 
 import com.automation.locators.HomeLocators;
-import com.automation.locators.LoginLocators;
-import com.automation.utils.AssertUtils;
 import com.automation.utils.ConfigConstants;
-import com.automation.utils.TestDataReader;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.By;
@@ -14,7 +11,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.time.Duration;
-import java.util.Map;
 
 /**
  * Login page object

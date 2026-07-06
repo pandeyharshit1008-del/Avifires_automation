@@ -79,46 +79,6 @@ public class TestDataReader {
     }
 
     /**
-     * Get signup test data from signup_data.json
-     *
-     * @param dataKey Key for the specific signup data (e.g., "validSignup", "invalidEmail")
-     * @return Map containing signup data
-     */
-    public static Map<String, String> getSignupData(String dataKey) {
-        Map<String, String> signupData = new HashMap<>();
-        JsonNode root = readJsonFile(ConfigConstants.TESTDATA_SIGNUP_PATH);
-        if (root == null) {
-            throw new RuntimeException("Signup test data file not found: " + ConfigConstants.TESTDATA_SIGNUP_PATH);
-        }
-        if (!root.has(dataKey)) {
-            throw new RuntimeException("Signup data key not found in test data: " + dataKey);
-        }
-
-        JsonNode dataNode = root.get(dataKey);
-        try {
-            dataNode.fields().forEachRemaining(entry -> {
-                String value = entry.getValue().asText();
-                // Decrypt if it's a sensitive field
-                if (entry.getKey().equals("email") || entry.getKey().equals("mobile") || entry.getKey().equals("password")) {
-                    String decrypted = EncryptionUtils.decrypt(value);
-                    if (decrypted == null) {
-                        throw new RuntimeException("Failed to decrypt signup field '" + entry.getKey() + "' for key: " + dataKey);
-                    }
-                    value = decrypted;
-                }
-                signupData.put(entry.getKey(), value);
-            });
-
-            logger.info("✓ Signup data loaded for: " + dataKey);
-            return signupData;
-        } catch (RuntimeException re) {
-            throw re;
-        } catch (Exception e) {
-            throw new RuntimeException("Error fetching signup data for key: " + dataKey + ". Cause: " + e.getMessage(), e);
-        }
-    }
-
-    /**
      * Get a specific value from JSON by key path
      *
      * @param filePath Path to the JSON file

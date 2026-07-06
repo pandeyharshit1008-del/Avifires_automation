@@ -40,7 +40,7 @@ public class SignupWorkflow {
         String mobile = "+91" + faker.regexify("[6-9][0-9]{9}");
         String password = faker.internet().password(12, 16, true, true, true);
 
-        UserCredentials user = new UserCredentials(email, firstName, lastName, mobile, password, password);
+        UserCredentials user = new UserCredentials(email, firstName, lastName, mobile, password);
         logger.info("Generated mobile: " + user.getMobile());
         logger.info("Generated password: " + user.getPassword());
         return user;

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<suite name="Portfolio Test Suite">
+    <test name="Portfolio Tests">
+        <classes>
+            <class name="com.automation.test.Portfolio.PortfolioTest"/>
+        </classes>
+    </test>
+</suite>
