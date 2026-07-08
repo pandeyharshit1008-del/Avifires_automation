@@ -15,20 +15,13 @@ public class PortfolioTest extends BaseTest {
 
     private static final Logger logger = LoggerFactory.getLogger(LoginTest.class);
 
-    /**
-     * Add SIP Transaction
-     */
     @Test
     public void testAddSIPTransaction() {
         LoginPage loginPage = new LoginPage(driver);
         PortfolioPage portfolioPage = new PortfolioPage(driver);
 
         Map<String, String> userData = TestDataReader.getUser("validUser");
-
-        String mobile = userData.get("mobile");
-        String password = userData.get("password");
-        loginPage.login(mobile, password);
-
+        loginPage.login(userData.get("mobile"), userData.get("password"));
 
         loginPage.openSidebar();
         loginPage.moveToPortfolioPage();
@@ -40,6 +33,5 @@ public class PortfolioTest extends BaseTest {
         portfolioPage.selectInvestmentDate("03-07-2026");
         portfolioPage.enterAmount(12548);
         portfolioPage.clickAddRecord();
-
     }
 }

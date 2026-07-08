@@ -35,7 +35,6 @@ public class PortfolioPage extends BasePage {
     }
 
     public void clickEditPortfolio() {
-
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
@@ -56,7 +55,6 @@ public class PortfolioPage extends BasePage {
 
     public void selectMutualFund(String fundName) {
         type(MUTUAL_FUND_SEARCH_BOX, fundName);
-
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
@@ -89,5 +87,4 @@ public class PortfolioPage extends BasePage {
         click(ADD_RECORD_BUTTON);
         logger.info("✓ Record added successfully");
     }
-
 }

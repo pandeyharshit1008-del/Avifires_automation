@@ -50,6 +50,5 @@ public class QuestionnareTest extends BaseTest {
         questionnarePage.answerQuestionnaireQuestions("Moderate fluctuation");
         questionnarePage.moveToNextQuestion();
         questionnarePage.submitPreferencesAndPriorities();
-
     }
 }

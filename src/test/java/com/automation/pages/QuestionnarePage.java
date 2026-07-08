@@ -1,6 +1,8 @@
 package com.automation.pages;
 
+import com.automation.locators.LoginLocators;
 import com.automation.locators.QuestionnareLocators;
+import com.automation.utils.AssertUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -8,6 +10,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 /**
  * Questionnaire page object
@@ -32,7 +36,6 @@ public class QuestionnarePage extends BasePage {
     public void selectInvestmentGoal(String goal) {
         By locator = By.xpath(
                 String.format(QuestionnareLocators.INVESTMENT_GOAL_OPTION, goal));
-
         click(locator);
         logger.info("✓ Selected investment goal: {}", goal);
     }
@@ -61,6 +64,12 @@ public class QuestionnarePage extends BasePage {
     public void submitInvestmentPlan() {
         click(QuestionnareLocators.INVESTMENT_GOAL_SUBMIT_BUTTON);
         logger.info("✓ Investment plan submitted");
+
+        AssertUtils.assertTextEquals(
+                driver,
+                QuestionnareLocators.INVESTMENT_SUCCESS_TOAST,
+                "Investment plans and goal projection saved successfully"
+        );
     }
 
     /**
@@ -110,5 +119,11 @@ public class QuestionnarePage extends BasePage {
     public void submitPreferencesAndPriorities() {
         click(QuestionnareLocators.PREFERENCES_AND_PRIORITIES_SUBMIT_BUTTON);
         logger.info("✓ Preferences and Priorities submitted");
+
+        AssertUtils.assertTextEquals(
+                driver,
+                QuestionnareLocators.PREFERENCES_SUCCESS_TOAST,
+                "Investment preferences submitted successfully"
+        );
     }
 }

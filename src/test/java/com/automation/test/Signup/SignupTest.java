@@ -6,14 +6,8 @@ import com.automation.utils.UserCredentials;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-/**
- * Test class for Signup functionality.
- */
 public class SignupTest extends BaseTest {
 
-    /**
-     * Test successful sign-up using dynamically generated credentials and OTP capture.
-     */
     @Test
     public void testValidSignUp() {
         SignupWorkflow signupWorkflow = new SignupWorkflow(driver);
@@ -21,14 +15,12 @@ public class SignupTest extends BaseTest {
         UserCredentials user = signupWorkflow.generateRandomUser();
         signupWorkflow.startOtpCapture();
         signupWorkflow.Signup(user);
-        boolean signupSuccess = signupWorkflow.verifySignupSuccess();
         signupWorkflow.stopOtpCapture();
+
+        boolean signupSuccess = signupWorkflow.verifySignupSuccess();
         Assert.assertTrue(signupSuccess, "Landed on signup form page after signup");
     }
 
-    /**
-     * Test signup with additional details.
-     */
     @Test
     public void testSignUpAddDetails() {
         SignupWorkflow signupWorkflow = new SignupWorkflow(driver);

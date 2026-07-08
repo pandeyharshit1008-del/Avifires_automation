@@ -45,4 +45,9 @@ public class BasePage {
     protected void navigateTo(String url) {
         driver.navigate().to(url);
     }
+
+    protected void navigateToPage(By locator, String pageName) {
+        click(locator);
+        System.out.println("✓ Navigated to " + pageName);
+    }
 }

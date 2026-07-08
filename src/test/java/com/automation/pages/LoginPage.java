@@ -35,19 +35,15 @@ public class LoginPage extends BasePage {
     }
 
     public void moveToHomePage() {
-        click(LoginLocators.OPEN_SIDEBAR_BUTTON);
-        click(LoginLocators.MOVE_TO_HOME_PAGE_BUTTON);
-        logger.info("✓ Navigated to home page");
+        navigateToPage(LoginLocators.MOVE_TO_HOME_PAGE_BUTTON, "Home page");
     }
 
     public void moveToQuestionnairePage() {
-        click(LoginLocators.QUESTIONNAIRE_PAGE_BUTTON);
-        logger.info("✓ Navigated to questionnaire page");
+        navigateToPage(LoginLocators.QUESTIONNAIRE_PAGE_BUTTON, "Questionnaire page");
     }
 
     public void moveToPortfolioPage() {
-        click(LoginLocators.PORTFOLIO_PAGE_BUTTON);
-        logger.info("✓ Navigated to Portfolio page");
+        navigateToPage(LoginLocators.PORTFOLIO_PAGE_BUTTON, "Portfolio page");
     }
 
     /**
@@ -143,6 +139,12 @@ public class LoginPage extends BasePage {
         } else {
             logger.info("✗ Test Failed: Login did not navigate to dashboard");
         }
+
+        AssertUtils.assertTextEquals(
+                driver,
+                LoginLocators.LOGIN_SUCCESS_TOAST,
+                "You have successfully logged in"
+        );
     }
 
     /**

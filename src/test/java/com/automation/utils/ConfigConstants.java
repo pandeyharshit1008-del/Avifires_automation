@@ -19,7 +19,7 @@ public class ConfigConstants {
     public static final int POLLING_INTERVAL_MILLIS = 500;
 
     // ===== File Paths =====
-    public static final String TESTDATA_USERS_PATH = "src/main/resources/testdata/users.json";
+    public static final String TESTDATA_USERS_PATH = "src/test/java/resources/testdata/users.json";
     public static final String TESTDATA_SIGNUP_PATH = "src/main/resources/testdata/signup_data.json";
     public static final String DOCUMENTS_PATH = "testdata/documents/";
     public static final String SCREENSHOTS_PATH = "screenshots/";

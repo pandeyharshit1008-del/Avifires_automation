@@ -113,7 +113,6 @@ public class SignupPage extends BasePage {
     }
 
     public void uploadProfilePhoto(String fileName) {
-
         String filePath = Paths.get(
                 "testdata",
                 "documents",
@@ -123,18 +122,15 @@ public class SignupPage extends BasePage {
         WebElement uploadInput = wait.until(
                 ExpectedConditions.presenceOfElementLocated(
                         SignupLocators.PROFILE_PHOTO_INPUT));
-
         uploadInput.sendKeys(filePath);
 
         logger.info("✓ Photo uploaded");
     }
 
     public void selectLockInPeriodAccepted(String option) {
-
         By radio = By.xpath(
             "//label[.//span[normalize-space()='" + option + "']]"
         );
-
         wait.until(ExpectedConditions.elementToBeClickable(radio))
                 .click();
 
@@ -142,13 +138,11 @@ public class SignupPage extends BasePage {
     }
 
     public void selectAnnualIncome(String annualIncome) {
-
         wait.until(ExpectedConditions.elementToBeClickable(
                 SignupLocators.ANNUAL_INCOME_DROPDOWN))
                 .click();
 
         By option = By.xpath("//li[@role='option' and normalize-space()='" + annualIncome + "']");
-
         wait.until(ExpectedConditions.elementToBeClickable(option))
                 .click();
 
@@ -156,13 +150,11 @@ public class SignupPage extends BasePage {
     }
 
     public void selectOccupation(String occupation) {
-
         wait.until(ExpectedConditions.elementToBeClickable(
                 SignupLocators.OCCUPATION_DROPDOWN))
                 .click();
 
         By option = By.xpath("//li[@role='option' and normalize-space()='" + occupation + "']");
-
         wait.until(ExpectedConditions.elementToBeClickable(option))
                 .click();
 
@@ -170,13 +162,11 @@ public class SignupPage extends BasePage {
     }
 
     public void selectMaritalStatus(String status) {
-
         wait.until(ExpectedConditions.elementToBeClickable(
                 SignupLocators.MARITAL_STATUS_DROPDOWN))
                 .click();
 
         By option = By.xpath("//li[@role='option' and normalize-space()='" + status + "']");
-
         wait.until(ExpectedConditions.elementToBeClickable(option))
                 .click();
 
@@ -184,12 +174,10 @@ public class SignupPage extends BasePage {
     }
 
     public void selectGender(String gender) {
-
         wait.until(ExpectedConditions.elementToBeClickable(SignupLocators.GENDER_DROPDOWN))
                 .click();
 
         By option = By.xpath("//li[@role='option' and normalize-space()='" + gender + "']");
-
         wait.until(ExpectedConditions.elementToBeClickable(option))
                 .click();
 

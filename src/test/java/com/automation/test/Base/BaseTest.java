@@ -45,14 +45,4 @@ public class BaseTest {
         DriverManager.quitDriver();
     }
 
-    /**
-     * Navigate to a specific URL
-     *
-     * @param url The URL to navigate to
-     */
-    protected void navigateTo(String url) {
-        driver.navigate().to(url);
-        logger.info("✓ Navigated to: " + url);
-    }
-
 }

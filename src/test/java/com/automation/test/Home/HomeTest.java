@@ -1,6 +1,5 @@
 package com.automation.test.Home;
 
-
 import com.automation.base.BaseTest;
 import com.automation.pages.HomePage;
 import com.automation.pages.LoginPage;
@@ -11,16 +10,10 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 
-/**
- * Test class for Login functionality
- */
 public class HomeTest extends BaseTest {
 
     private static final Logger logger = LoggerFactory.getLogger(com.automation.test.Home.HomeTest.class);
 
-    /**
-     * Test the functionalities of financial return calculator
-     */
     @Test
     public void testFinancialReturnCalculator() {
         logger.info("\n========== TEST: Financial Return Calculator ==========");
@@ -29,12 +22,9 @@ public class HomeTest extends BaseTest {
         HomePage homePage = new HomePage(driver);
 
         Map<String, String> userData = TestDataReader.getUser("validUser");
+        loginPage.login(userData.get("mobile"), userData.get("password"));
 
-
-        String mobile = userData.get("mobile");
-        String password = userData.get("password");
-
-        loginPage.login(mobile, password);
+        loginPage.openSidebar();
         loginPage.moveToHomePage();
 
         homePage.setInvestmentAmount(500000);

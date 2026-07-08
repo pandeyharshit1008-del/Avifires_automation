@@ -14,4 +14,22 @@
         </classes>
     </test>
 
+    <test name="Portfolio Tests">
+        <classes>
+            <class name="com.automation.test.Portfolio.PortfolioTest"/>
+        </classes>
+    </test>
+
+    <test name="Questionnare Tests">
+        <classes>
+            <class name="com.automation.test.Questionnare.QuestionnareTest"/>
+        </classes>
+    </test>
+
+    <test name="Home Tests">
+        <classes>
+            <class name="com.automation.test.Home.HomeTest"/>
+        </classes>
+    </test>
+
 </suite>

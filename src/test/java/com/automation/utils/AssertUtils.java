@@ -109,17 +109,22 @@ public class AssertUtils {
      */
     public static boolean assertTextEquals(WebDriver driver, By locator, String expectedText) {
         try {
-            WebElement element = driver.findElement(locator);
-            String actualText = element.getText();
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(100));
+
+            WebElement element = wait.until(
+                    ExpectedConditions.visibilityOfElementLocated(locator));
+
+            String actualText = element.getText().trim();
+
             if (actualText.equals(expectedText)) {
-                logger.info("✓ Text matches. Expected: " + expectedText + ", Actual: " + actualText);
+                logger.info("✓ Text matches. Expected: {}, Actual: {}", expectedText, actualText);
                 return true;
             } else {
-                logger.info("✗ Text does not match. Expected: " + expectedText + ", Actual: " + actualText);
+                logger.info("✗ Text does not match. Expected: {}, Actual: {}", expectedText, actualText);
                 return false;
             }
         } catch (Exception e) {
-            logger.info("✗ Error comparing text: " + e.getMessage());
+            logger.info("✗ Error comparing text: {}", e.getMessage());
             return false;
         }
     }
@@ -181,16 +186,21 @@ public class AssertUtils {
      */
     public static boolean assertUrlEquals(WebDriver driver, String expectedUrl) {
         try {
-            String currentUrl = driver.getCurrentUrl();
-            if (currentUrl.equals(expectedUrl)) {
-                logger.info("✓ URL matches: " + expectedUrl);
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+            boolean matched = wait.until(
+                    ExpectedConditions.urlToBe(expectedUrl));
+
+            if (matched) {
+                logger.info("✓ URL matches: {}", expectedUrl);
                 return true;
-            } else {
-//                logger.info("✗ URL does not match. Expected: " + expectedUrl + ", Current: " + currentUrl);
-                return false;
             }
+
+            return false;
+
         } catch (Exception e) {
-            logger.info("✗ Error checking URL: " + e.getMessage());
+            logger.info("✗ URL did not become: {}", expectedUrl);
+            logger.info("Current URL: {}", driver.getCurrentUrl());
             return false;
         }
     }

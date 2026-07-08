@@ -9,16 +9,10 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 
-/**
- * Test class for Login functionality
- */
 public class LoginTest extends BaseTest {
 
     private static final Logger logger = LoggerFactory.getLogger(LoginTest.class);
 
-    /**
-     * Test valid login with mobile and password
-     */
     @Test
     public void testValidLogin() {
         logger.info("\n========== TEST: Valid Login ==========");
@@ -33,8 +27,6 @@ public class LoginTest extends BaseTest {
 
         String mobile = userData.get("mobile");
         String password = userData.get("password");
-
         loginPage.login(mobile, password);
-
     }
 }
