@@ -85,16 +85,20 @@ public class AssertUtils {
      */
     public static boolean assertEnabled(WebDriver driver, By locator) {
         try {
-            WebElement element = driver.findElement(locator);
-            boolean isEnabled = element.isEnabled();
-            if (isEnabled) {
-                logger.info("✓ Element is enabled: " + locator);
-            } else {
-                logger.info("✗ Element is not enabled: " + locator);
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+            WebElement element = wait.until(
+                    ExpectedConditions.elementToBeClickable(locator));
+
+            if (element.isEnabled()) {
+                logger.info("✓ Element is enabled: {}", locator);
+                return true;
             }
-            return isEnabled;
+
+            return false;
+
         } catch (Exception e) {
-            logger.info("✗ Cannot determine if element is enabled: " + locator);
+            logger.info("✗ Element did not become enabled: {}", locator);
             return false;
         }
     }
@@ -163,16 +167,21 @@ public class AssertUtils {
      */
     public static boolean assertUrlContains(WebDriver driver, String expectedUrl) {
         try {
-            String currentUrl = driver.getCurrentUrl();
-            if (currentUrl.contains(expectedUrl)) {
-                logger.info("✓ URL contains: " + expectedUrl);
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+            boolean matched = wait.until(
+                    ExpectedConditions.urlContains(expectedUrl));
+
+            if (matched) {
+                logger.info("✓ URL contains: {}", expectedUrl);
                 return true;
-            } else {
-                logger.info("✗ URL does not contain: " + expectedUrl + ". Current URL: " + currentUrl);
-                return false;
             }
+
+            return false;
+
         } catch (Exception e) {
-            logger.info("✗ Error checking URL: " + e.getMessage());
+            logger.info("✗ URL did not contain: {}", expectedUrl);
+            logger.info("Current URL: {}", driver.getCurrentUrl());
             return false;
         }
     }

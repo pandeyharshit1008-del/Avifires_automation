@@ -94,16 +94,7 @@ public class QuestionnarePage extends BasePage {
         logger.info("✓ Selected radio option: {}", optionText);
     }
 
-    /**
-     * Scroll to element
-     */
-    private void scrollToElement(By locator) {
-        WebElement element = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(locator));
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].scrollIntoView({block:'center'});",
-                element);
-    }
+
 
     /**
      * Move to next question

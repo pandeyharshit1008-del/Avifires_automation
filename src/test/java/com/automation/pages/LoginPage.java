@@ -44,6 +44,11 @@ public class LoginPage extends BasePage {
 
     public void moveToPortfolioPage() {
         navigateToPage(LoginLocators.PORTFOLIO_PAGE_BUTTON, "Portfolio page");
+        if (AssertUtils.assertUrlContains(driver, ConfigConstants.PORTFOLIO_PAGE_URL)) {
+            logger.info("✓ Landed on portfolio page");
+        } else {
+            logger.info("✗ Failed to load portfolio page");
+        }
     }
 
     /**

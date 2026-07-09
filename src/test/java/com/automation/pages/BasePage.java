@@ -3,6 +3,7 @@ package com.automation.pages;
 import com.automation.utils.AssertUtils;
 import com.automation.utils.ConfigConstants;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -49,5 +50,13 @@ public class BasePage {
     protected void navigateToPage(By locator, String pageName) {
         click(locator);
         System.out.println("✓ Navigated to " + pageName);
+    }
+
+    protected void scrollToElement(By locator) {
+        WebElement element = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(locator));
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView({block:'center'});",
+                element);
     }
 }

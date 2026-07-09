@@ -1,4 +1,4 @@
-package com.automation.base;
+package com.automation.utils;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
@@ -15,7 +15,6 @@ public class DriverManager {
     /**
      * Initialize ChromeDriver
      *
-     * @return WebDriver instance
      */
     public static WebDriver initializeDriver() {
         if (driver == null) {
@@ -27,8 +26,9 @@ public class DriverManager {
             options.addArguments("--no-sandbox");
             options.addArguments("--disable-dev-shm-usage");
             options.addArguments("--disable-gpu");
-            // Uncomment for headless mode
-            // options.addArguments("--headless");
+//             Uncomment for any mode
+//            options.addArguments("--headless");
+            options.addArguments("--headed");
 
             // Initialize ChromeDriver
             driver = new ChromeDriver(options);

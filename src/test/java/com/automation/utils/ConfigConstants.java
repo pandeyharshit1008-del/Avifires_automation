@@ -19,7 +19,7 @@ public class ConfigConstants {
     public static final int POLLING_INTERVAL_MILLIS = 500;
 
     // ===== File Paths =====
-    public static final String TESTDATA_USERS_PATH = "src/test/java/resources/testdata/users.json";
+    public static final String TESTDATA_USERS_PATH = "testdata/documents/users.json";
     public static final String TESTDATA_SIGNUP_PATH = "src/main/resources/testdata/signup_data.json";
     public static final String DOCUMENTS_PATH = "testdata/documents/";
     public static final String SCREENSHOTS_PATH = "screenshots/";
@@ -37,6 +37,7 @@ public class ConfigConstants {
     public static final String SIGNUP_PAGE_URL = APP_BASE_URL;
     public static final String UPLOAD_PAGE_URL = APP_BASE_URL + "/upload";
     public static final String DASHBOARD_URL = APP_BASE_URL + "/user-dashboard";
+    public static final String PORTFOLIO_PAGE_URL = "/portfolio-section";
 
     // ===== Log Messages =====
     public static final String LOG_BROWSER_LAUNCH = "Browser launched successfully";

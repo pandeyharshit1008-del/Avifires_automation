@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import static com.automation.locators.PortfolioLocators.*;
+import com.automation.utils.AssertUtils;
 
 public class PortfolioPage extends BasePage {
 
@@ -17,15 +18,6 @@ public class PortfolioPage extends BasePage {
 
     public PortfolioPage(WebDriver driver) {
         super(driver);
-    }
-
-    public void scrollToElement(By locator) {
-        WebElement element = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(locator));
-
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].scrollIntoView({block:'center'});",
-                element);
     }
 
     public void scrollBy(int pixels) {
@@ -41,8 +33,9 @@ public class PortfolioPage extends BasePage {
             Thread.currentThread().interrupt();
         }
 
-        scrollBy(1000);
+        scrollBy(500);
         scrollToElement(EDIT_PORTFOLIO_BUTTON);
+        AssertUtils.assertEnabled(driver , EDIT_PORTFOLIO_BUTTON);
         click(EDIT_PORTFOLIO_BUTTON);
         logger.info("✓ Edit Portfolio button clicked");
     }
