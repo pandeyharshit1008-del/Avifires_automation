@@ -26,7 +26,7 @@ public class DriverManager {
             options.addArguments("--no-sandbox");
             options.addArguments("--disable-dev-shm-usage");
             options.addArguments("--disable-gpu");
-//             Uncomment for any mode
+//             Uncomment to run in any mode
 //            options.addArguments("--headless");
             options.addArguments("--headed");
 

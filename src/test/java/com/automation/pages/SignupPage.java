@@ -2,6 +2,7 @@ package com.automation.pages;
 
 import com.automation.locators.SignupLocators;
 import com.automation.locators.LoginLocators;
+import com.automation.utils.HelperFunctions;
 import com.automation.utils.ConfigConstants;
 import com.automation.utils.UserCredentials;
 import org.openqa.selenium.WebDriver;
@@ -16,7 +17,7 @@ import org.openqa.selenium.WebElement;
  * Signup page object
  * Contains all signup-related actions and workflows
  */
-public class SignupPage extends BasePage {
+public class SignupPage extends HelperFunctions {
 
     private static final Logger logger = LoggerFactory.getLogger(SignupPage.class);
 

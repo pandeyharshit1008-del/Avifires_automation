@@ -1,5 +1,6 @@
 package com.automation.pages;
 
+import com.automation.utils.HelperFunctions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -12,7 +13,7 @@ import org.slf4j.LoggerFactory;
 import static com.automation.locators.PortfolioLocators.*;
 import com.automation.utils.AssertUtils;
 
-public class PortfolioPage extends BasePage {
+public class PortfolioPage extends HelperFunctions {
 
     private static final Logger logger = LoggerFactory.getLogger(PortfolioPage.class);
 

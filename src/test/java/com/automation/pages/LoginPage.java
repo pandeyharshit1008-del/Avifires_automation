@@ -2,6 +2,7 @@ package com.automation.pages;
 
 import com.automation.locators.LoginLocators;
 import com.automation.utils.AssertUtils;
+import com.automation.utils.HelperFunctions;
 import com.automation.utils.ConfigConstants;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
@@ -11,7 +12,7 @@ import org.slf4j.LoggerFactory;
  * Login page object
  * Contains all login-related actions and workflows
  */
-public class LoginPage extends BasePage {
+public class LoginPage extends HelperFunctions {
 
     private static final Logger logger = LoggerFactory.getLogger(LoginPage.class);
 

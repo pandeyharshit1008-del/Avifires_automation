@@ -1,6 +1,6 @@
 package com.automation.test.Portfolio;
 
-import com.automation.base.BaseTest;
+import com.automation.utils.BaseTest;
 import com.automation.pages.LoginPage;
 import com.automation.pages.PortfolioPage;
 import com.automation.test.Login.LoginTest;

@@ -1,6 +1,6 @@
 package com.automation.test.Home;
 
-import com.automation.base.BaseTest;
+import com.automation.utils.BaseTest;
 import com.automation.pages.HomePage;
 import com.automation.pages.LoginPage;
 import com.automation.utils.TestDataReader;

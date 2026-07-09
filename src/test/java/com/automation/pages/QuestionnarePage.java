@@ -1,23 +1,18 @@
 package com.automation.pages;
 
-import com.automation.locators.LoginLocators;
 import com.automation.locators.QuestionnareLocators;
 import com.automation.utils.AssertUtils;
+import com.automation.utils.HelperFunctions;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.List;
 
 /**
  * Questionnaire page object
  * Contains all questionnaire-related actions
  */
-public class QuestionnarePage extends BasePage {
+public class QuestionnarePage extends HelperFunctions {
 
     private static final Logger logger = LoggerFactory.getLogger(QuestionnarePage.class);
 

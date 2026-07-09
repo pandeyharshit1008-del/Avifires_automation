@@ -1,6 +1,6 @@
 package com.automation.test.Login;
 
-import com.automation.base.BaseTest;
+import com.automation.utils.BaseTest;
 import com.automation.pages.LoginPage;
 import com.automation.utils.TestDataReader;
 import org.testng.annotations.Test;

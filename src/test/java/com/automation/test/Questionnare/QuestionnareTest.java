@@ -1,6 +1,6 @@
 package com.automation.test.Questionnare;
 
-import com.automation.base.BaseTest;
+import com.automation.utils.BaseTest;
 import com.automation.pages.LoginPage;
 import com.automation.pages.QuestionnarePage;
 import com.automation.utils.TestDataReader;

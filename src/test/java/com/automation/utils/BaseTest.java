@@ -1,7 +1,5 @@
-package com.automation.base;
+package com.automation.utils;
 
-import com.automation.utils.DriverManager;
-import com.automation.utils.ConfigConstants;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
