@@ -4,7 +4,7 @@
 <suite name="Portfolio Test Suite">
     <test name="Portfolio Tests">
         <classes>
-            <class name="com.automation.test.Portfolio.PortfolioTest"/>
+            <class name="com.automation.test.PortfolioTest"/>
         </classes>
     </test>
 </suite>

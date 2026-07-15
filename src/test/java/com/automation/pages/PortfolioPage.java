@@ -1,6 +1,6 @@
 package com.automation.pages;
 
-import com.automation.utils.HelperFunctions;
+import com.automation.Helpers.HelperFunctions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;

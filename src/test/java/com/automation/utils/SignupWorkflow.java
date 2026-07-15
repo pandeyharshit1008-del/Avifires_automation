@@ -1,13 +1,11 @@
-package com.automation.pages;
+package com.automation.utils;
 
-import com.automation.utils.OTPInterceptor;
-import com.automation.utils.UserCredentials;
+import com.automation.pages.SignupPage;
 import com.github.javafaker.Faker;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.time.Duration;
 
 /**
@@ -19,16 +17,28 @@ public class SignupWorkflow {
 
     private final WebDriver driver;
     private final SignupPage signupPage;
-    private final LoginPage loginPage;
     private final OTPInterceptor otpInterceptor;
     private final WebDriverWait otpWait;
 
     public SignupWorkflow(WebDriver driver) {
         this.driver = driver;
         this.signupPage = new SignupPage(driver);
-        this.loginPage = new LoginPage(driver);
         this.otpInterceptor = new OTPInterceptor(driver);
         this.otpWait = new WebDriverWait(driver, Duration.ofSeconds(15));
+    }
+
+    private String generateStrongPassword(Faker faker) {
+        String password;
+
+        do {
+            password = faker.internet().password(12, 16, true, true, true);
+        } while (!isStrongPassword(password));
+
+        return password;
+    }
+
+    public boolean isStrongPassword(String password) {
+        return password.matches("^(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*]).{12,16}$");
     }
 
     public UserCredentials generateRandomUser() {
@@ -38,7 +48,7 @@ public class SignupWorkflow {
         String firstName = faker.name().firstName();
         String lastName = faker.name().lastName();
         String mobile = "+91" + faker.regexify("[6-9][0-9]{9}");
-        String password = faker.internet().password(12, 16, true, true, true);
+        String password = generateStrongPassword(faker);
 
         UserCredentials user = new UserCredentials(email, firstName, lastName, mobile, password);
         logger.info("Generated mobile: " + user.getMobile());

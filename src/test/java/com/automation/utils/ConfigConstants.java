@@ -38,6 +38,8 @@ public class ConfigConstants {
     public static final String UPLOAD_PAGE_URL = APP_BASE_URL + "/upload";
     public static final String DASHBOARD_URL = APP_BASE_URL + "/user-dashboard";
     public static final String PORTFOLIO_PAGE_URL = "/portfolio-section";
+    public static final String QUESTIONNARE_PAGE_URL = "/questions-form";
+    public static final String HOME_PAGE_URL = APP_BASE_URL + "/";
 
     // ===== Log Messages =====
     public static final String LOG_BROWSER_LAUNCH = "Browser launched successfully";

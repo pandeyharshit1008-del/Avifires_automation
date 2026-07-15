@@ -1,4 +1,4 @@
-package com.automation.test.Questionnare;
+package com.automation.test;
 
 import com.automation.utils.BaseTest;
 import com.automation.pages.LoginPage;

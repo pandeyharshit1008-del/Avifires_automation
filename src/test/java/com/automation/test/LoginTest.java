@@ -1,4 +1,4 @@
-package com.automation.test.Login;
+package com.automation.test;
 
 import com.automation.utils.BaseTest;
 import com.automation.pages.LoginPage;

@@ -2,7 +2,7 @@ package com.automation.pages;
 
 import com.automation.locators.LoginLocators;
 import com.automation.utils.AssertUtils;
-import com.automation.utils.HelperFunctions;
+import com.automation.Helpers.HelperFunctions;
 import com.automation.utils.ConfigConstants;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
@@ -37,10 +37,20 @@ public class LoginPage extends HelperFunctions {
 
     public void moveToHomePage() {
         navigateToPage(LoginLocators.MOVE_TO_HOME_PAGE_BUTTON, "Home page");
+        if (AssertUtils.assertUrlEquals(driver, ConfigConstants.HOME_PAGE_URL)) {
+            logger.info("✓ Landed on home page");
+        } else {
+            logger.info("✗ Failed to load home page");
+        }
     }
 
     public void moveToQuestionnairePage() {
         navigateToPage(LoginLocators.QUESTIONNAIRE_PAGE_BUTTON, "Questionnaire page");
+        if (AssertUtils.assertUrlContains(driver, ConfigConstants.QUESTIONNARE_PAGE_URL)) {
+            logger.info("✓ Landed on questionnare page");
+        } else {
+            logger.info("✗ Failed to load questionnare page");
+        }
     }
 
     public void moveToPortfolioPage() {

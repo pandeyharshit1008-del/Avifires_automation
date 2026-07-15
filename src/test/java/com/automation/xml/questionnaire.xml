@@ -4,7 +4,7 @@
 <suite name="Questionnaire Test Suite">
     <test name="Questionnaire Tests">
         <classes>
-            <class name="com.automation.test.Questionnare.QuestionnareTest"/>
+            <class name="com.automation.test.QuestionnareTest"/>
         </classes>
     </test>
 </suite>

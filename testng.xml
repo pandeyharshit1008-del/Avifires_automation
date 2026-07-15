@@ -4,31 +4,31 @@
     
     <test name="Login Tests">
         <classes>
-            <class name="com.automation.test.Login.LoginTest"/>
+            <class name="com.automation.test.LoginTest"/>
         </classes>
     </test>
 
     <test name="Signup Tests">
         <classes>
-            <class name="com.automation.test.Signup.SignupTest"/>
+            <class name="com.automation.test.SignupTest"/>
         </classes>
     </test>
 
     <test name="Portfolio Tests">
         <classes>
-            <class name="com.automation.test.Portfolio.PortfolioTest"/>
+            <class name="com.automation.test.PortfolioTest"/>
         </classes>
     </test>
 
     <test name="Questionnare Tests">
         <classes>
-            <class name="com.automation.test.Questionnare.QuestionnareTest"/>
+            <class name="com.automation.test.QuestionnareTest"/>
         </classes>
     </test>
 
     <test name="Home Tests">
         <classes>
-            <class name="com.automation.test.Home.HomeTest"/>
+            <class name="com.automation.test.HomeTest"/>
         </classes>
     </test>
 

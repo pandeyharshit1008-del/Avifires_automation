@@ -2,7 +2,7 @@ package com.automation.pages;
 
 import com.automation.locators.QuestionnareLocators;
 import com.automation.utils.AssertUtils;
-import com.automation.utils.HelperFunctions;
+import com.automation.Helpers.HelperFunctions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;

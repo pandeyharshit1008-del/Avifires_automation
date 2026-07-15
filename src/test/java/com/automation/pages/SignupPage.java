@@ -2,7 +2,7 @@ package com.automation.pages;
 
 import com.automation.locators.SignupLocators;
 import com.automation.locators.LoginLocators;
-import com.automation.utils.HelperFunctions;
+import com.automation.Helpers.HelperFunctions;
 import com.automation.utils.ConfigConstants;
 import com.automation.utils.UserCredentials;
 import org.openqa.selenium.WebDriver;

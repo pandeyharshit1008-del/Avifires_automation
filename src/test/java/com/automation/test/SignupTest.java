@@ -1,7 +1,7 @@
-package com.automation.test.Signup;
+package com.automation.test;
 
 import com.automation.utils.BaseTest;
-import com.automation.pages.SignupWorkflow;
+import com.automation.utils.SignupWorkflow;
 import com.automation.utils.UserCredentials;
 import org.testng.Assert;
 import org.testng.annotations.Test;

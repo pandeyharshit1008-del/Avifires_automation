@@ -1,9 +1,8 @@
-package com.automation.test.Portfolio;
+package com.automation.test;
 
 import com.automation.utils.BaseTest;
 import com.automation.pages.LoginPage;
 import com.automation.pages.PortfolioPage;
-import com.automation.test.Login.LoginTest;
 import com.automation.utils.TestDataReader;
 import org.testng.annotations.Test;
 import org.slf4j.Logger;

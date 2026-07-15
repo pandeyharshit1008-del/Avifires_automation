@@ -1,5 +1,7 @@
-package com.automation.utils;
+package com.automation.Helpers;
 
+import com.automation.utils.AssertUtils;
+import com.automation.utils.ConfigConstants;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;

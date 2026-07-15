@@ -4,7 +4,7 @@
 <suite name="Home Test Suite">
     <test name="Home Tests">
         <classes>
-            <class name="com.automation.test.Home.HomeTest"/>
+            <class name="com.automation.test.HomeTest"/>
         </classes>
     </test>
 </suite>

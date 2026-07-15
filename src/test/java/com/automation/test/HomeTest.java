@@ -1,4 +1,4 @@
-package com.automation.test.Home;
+package com.automation.test;
 
 import com.automation.utils.BaseTest;
 import com.automation.pages.HomePage;
@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class HomeTest extends BaseTest {
 
-    private static final Logger logger = LoggerFactory.getLogger(com.automation.test.Home.HomeTest.class);
+    private static final Logger logger = LoggerFactory.getLogger(HomeTest.class);
 
     @Test
     public void testFinancialReturnCalculator() {

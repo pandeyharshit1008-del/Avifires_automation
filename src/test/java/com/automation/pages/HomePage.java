@@ -36,7 +36,7 @@ public class HomePage {
     /**
      * Set the investment amount on the financial return calculator slider
      *
-     * @param amount The investment amount to set
+     * @param targetAmount The investment amount to set
      */
     public void setInvestmentAmount(int targetAmount) {
 

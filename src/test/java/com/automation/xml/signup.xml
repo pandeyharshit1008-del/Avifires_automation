@@ -4,7 +4,7 @@
 <suite name="Signup Test Suite">
     <test name="Signup Tests">
         <classes>
-            <class name="com.automation.test.Signup.SignupTest"/>
+            <class name="com.automation.test.SignupTest"/>
         </classes>
     </test>
 </suite>
